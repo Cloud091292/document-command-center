@@ -52,7 +52,7 @@ import {
   File,
   Folder,
   FileText,
-  FilePdf,
+  FileIcon, // Changed from FilePdf to FileIcon
   FileSpreadsheet,
   FileImage,
   Download,
@@ -83,7 +83,7 @@ const documents = [
     department: 'Executive',
     lastModified: '2025-04-01',
     status: 'Active',
-    icon: FilePdf,
+    icon: FileIcon, // Changed from FilePdf to FileIcon
   },
   {
     id: 2,
@@ -116,7 +116,7 @@ const documents = [
     department: 'Marketing',
     lastModified: '2025-03-15',
     status: 'Active',
-    icon: FilePdf,
+    icon: FileIcon, // Changed from FilePdf to FileIcon
   },
   {
     id: 5,
@@ -138,7 +138,7 @@ const documents = [
     department: 'Executive',
     lastModified: '2025-04-02',
     status: 'Active',
-    icon: FilePdf,
+    icon: FileIcon, // Changed from FilePdf to FileIcon
   },
   {
     id: 7,
@@ -160,7 +160,7 @@ const documents = [
     department: 'Marketing',
     lastModified: '2025-02-28',
     status: 'Active',
-    icon: FilePdf,
+    icon: FileIcon, // Changed from FilePdf to FileIcon
   },
 ];
 
