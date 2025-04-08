@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
@@ -42,13 +43,17 @@ const FormField = <
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext)
   const itemContext = React.useContext(FormItemContext)
-  const { getFieldState, formState } = useFormContext()
+  const formContext = useFormContext()
 
-  const fieldState = getFieldState(fieldContext.name, formState)
-
+  // Handle the case where the hook is used outside of a form context
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>")
   }
+
+  // Create safe default values when form context is not available
+  const fieldState = formContext ? 
+    formContext.getFieldState(fieldContext.name, formContext.formState) : 
+    { invalid: false, isDirty: false, isTouched: false, error: undefined }
 
   const { id } = itemContext
 

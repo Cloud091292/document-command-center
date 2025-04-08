@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,6 +48,14 @@ import {
   Search,
   X
 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Mock data for outgoing documents
 const outgoingDocuments = [
@@ -127,6 +134,18 @@ const OutgoingDocuments = () => {
     releaseStatus: '',
   });
 
+  // Create form instance for the new document form
+  const newDocumentForm = useForm({
+    defaultValues: {
+      title: '',
+      description: '',
+      classification: '',
+      referenceCode: '',
+      destinationUnit: '',
+      releaseStatus: '',
+    }
+  });
+
   // Filter documents based on search query and filters
   const filteredDocuments = outgoingDocuments.filter(doc => {
     const matchesSearch = doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -165,6 +184,12 @@ const OutgoingDocuments = () => {
     setSelectedDocument(null);
   };
 
+  // Handle new document submission
+  const onSubmitNewDocument = (data: any) => {
+    console.log("New document data:", data);
+    // Here you would typically send this data to your API
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -188,65 +213,144 @@ const OutgoingDocuments = () => {
                 </DialogDescription>
               </DialogHeader>
               
-              <div className="grid gap-4 py-4">
-                <div className="grid gap-2">
-                  <FormLabel>Upload Document</FormLabel>
-                  <Input type="file" className="cursor-pointer" />
-                </div>
-                
-                <div className="grid gap-2">
-                  <FormLabel>Title</FormLabel>
-                  <Input placeholder="Document title" />
-                </div>
-
-                <div className="grid gap-2">
-                  <FormLabel>Description</FormLabel>
-                  <Textarea placeholder="Brief description of the document" />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
+              <Form {...newDocumentForm}>
+                <form onSubmit={newDocumentForm.handleSubmit(onSubmitNewDocument)} className="grid gap-4 py-4">
                   <div className="grid gap-2">
-                    <FormLabel>Classification</FormLabel>
-                    <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                      <option value="">Select classification</option>
-                      {documentClassifications.map(classification => (
-                        <option key={classification} value={classification}>{classification}</option>
-                      ))}
-                    </select>
+                    <FormLabel>Upload Document</FormLabel>
+                    <Input type="file" className="cursor-pointer" />
                   </div>
-                  <div className="grid gap-2">
-                    <FormLabel>Reference Code</FormLabel>
-                    <Input placeholder="Reference code" />
-                  </div>
-                </div>
+                  
+                  <FormField
+                    control={newDocumentForm.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Title</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Document title" {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="grid gap-2">
-                    <FormLabel>Destination Unit</FormLabel>
-                    <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                      <option value="">Select destination unit</option>
-                      {destinationUnits.map(unit => (
-                        <option key={unit} value={unit}>{unit}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="grid gap-2">
-                    <FormLabel>Release Status</FormLabel>
-                    <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                      <option value="">Select release status</option>
-                      {releaseStatuses.map(status => (
-                        <option key={status} value={status}>{status}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
+                  <FormField
+                    control={newDocumentForm.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Description</FormLabel>
+                        <FormControl>
+                          <Textarea placeholder="Brief description of the document" {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
-              <DialogFooter>
-                <Button variant="outline" type="button">Save as Draft</Button>
-                <Button variant="outline" type="button">Submit for Approval</Button>
-                <Button type="submit">Publish</Button>
-              </DialogFooter>
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormField
+                      control={newDocumentForm.control}
+                      name="classification"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Classification</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select classification" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {documentClassifications.map(classification => (
+                                <SelectItem key={classification} value={classification}>
+                                  {classification}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={newDocumentForm.control}
+                      name="referenceCode"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Reference Code</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Reference code" {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormField
+                      control={newDocumentForm.control}
+                      name="destinationUnit"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Destination Unit</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select destination unit" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {destinationUnits.map(unit => (
+                                <SelectItem key={unit} value={unit}>
+                                  {unit}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={newDocumentForm.control}
+                      name="releaseStatus"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Release Status</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select release status" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {releaseStatuses.map(status => (
+                                <SelectItem key={status} value={status}>
+                                  {status}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <DialogFooter>
+                    <Button variant="outline" type="button">Save as Draft</Button>
+                    <Button variant="outline" type="button">Submit for Approval</Button>
+                    <Button type="submit">Publish</Button>
+                  </DialogFooter>
+                </form>
+              </Form>
             </DialogContent>
           </Dialog>
         </div>
