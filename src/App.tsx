@@ -17,6 +17,7 @@ import Templates from "./pages/templates/Templates";
 import MyRequests from "./pages/approval/MyRequests";
 import PendingApproval from "./pages/approval/PendingApproval";
 import Settings from "./pages/settings/Settings";
+import Integrations from "./pages/settings/Integrations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/approval/my-requests" element={<MyRequests />} />
             <Route path="/approval/pending" element={<PendingApproval />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/integrations" element={<Integrations />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AppLayout>

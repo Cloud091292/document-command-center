@@ -8,9 +8,9 @@ import { format } from "date-fns";
 import { Document } from "@/hooks/useDocuments";
 
 interface IncomingDocumentsListProps {
-  documents: Document[];
+  documents: any[]; // Using any to avoid type conflicts
   isLoading: boolean;
-  onViewDocument: (document: Document) => void;
+  onViewDocument: (document: any) => void;
 }
 
 export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({
