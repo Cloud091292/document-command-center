@@ -1,28 +1,15 @@
-
 import React from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Download, Eye, File, Send } from "lucide-react";
 import { format } from "date-fns";
-
-type Document = {
-  id: string;
-  title: string;
-  classification: string;
-  sender: string;
-  dateReceived: Date;
-  status: 'Pending' | 'Processed' | 'Forwarded';
-  referenceCode: string;
-  fileUrl: string;
-  fileType?: string;
-  department?: string;
-};
+import { Document as DocumentType } from "@/hooks/useDocuments";
 
 interface IncomingDocumentsGridProps {
-  documents: Document[];
+  documents: DocumentType[];
   isLoading: boolean;
-  onViewDocument: (document: Document) => void;
+  onViewDocument: (document: DocumentType) => void;
 }
 
 export const IncomingDocumentsGrid: React.FC<IncomingDocumentsGridProps> = ({
@@ -38,7 +25,6 @@ export const IncomingDocumentsGrid: React.FC<IncomingDocumentsGridProps> = ({
     return <div className="text-center p-8">No documents found.</div>;
   }
 
-  // Group documents by department or date (month/year)
   const groupedByDepartment = documents.reduce((acc, doc) => {
     const department = doc.department || 'Unassigned';
     if (!acc[department]) {
@@ -46,7 +32,7 @@ export const IncomingDocumentsGrid: React.FC<IncomingDocumentsGridProps> = ({
     }
     acc[department].push(doc);
     return acc;
-  }, {} as Record<string, Document[]>);
+  }, {} as Record<string, DocumentType[]>);
 
   return (
     <div className="space-y-8">

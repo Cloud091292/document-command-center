@@ -1,27 +1,13 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Download, File, Printer, Send, Share2 } from "lucide-react";
 import { format } from "date-fns";
-
-type Document = {
-  id: string;
-  title: string;
-  description?: string;
-  classification: string;
-  sender: string;
-  dateReceived: Date;
-  status: 'Pending' | 'Processed' | 'Forwarded';
-  referenceCode: string;
-  fileUrl: string;
-  fileType?: string;
-  department?: string;
-};
+import { Document as DocumentType } from "@/hooks/useDocuments";
 
 interface DocumentDetailViewProps {
-  document: Document;
+  document: DocumentType;
   onClose: () => void;
 }
 
