@@ -9,7 +9,7 @@ import { ApprovalDocumentCard } from "@/components/approval/ApprovalDocumentCard
 import { ApprovalDocumentDetail } from "@/components/approval/ApprovalDocumentDetail";
 import { ApprovalStatusFilter } from "@/components/approval/ApprovalStatusFilter";
 import { useApprovalDocuments, ApprovalDocument, ApprovalStatus } from "@/hooks/useApprovalDocuments";
-import { useMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 
 const PendingApproval = () => {
@@ -17,7 +17,7 @@ const PendingApproval = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [selectedDocument, setSelectedDocument] = useState<ApprovalDocument | null>(null);
-  const isMobile = useMobile();
+  const isMobile = useIsMobile();
   const { toast } = useToast();
 
   // Filter documents based on search query and selected status
