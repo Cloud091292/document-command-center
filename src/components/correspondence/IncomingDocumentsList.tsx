@@ -5,17 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Download, Eye, Send } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-
-type Document = {
-  id: string;
-  title: string;
-  classification: string;
-  sender: string;
-  dateReceived: Date;
-  status: 'Pending' | 'Processed' | 'Forwarded';
-  referenceCode: string;
-  fileUrl: string;
-};
+import { Document } from "@/hooks/useDocuments";
 
 interface IncomingDocumentsListProps {
   documents: Document[];
