@@ -47,9 +47,15 @@ const PendingApproval = () => {
   const handleUpdateStatus = (id: string, status: ApprovalStatus, comment?: string) => {
     updateDocumentStatus(id, status, comment);
     
+    const statusMessages = {
+      "Approved": "được phê duyệt",
+      "Rejected": "bị từ chối",
+      "Pending": "đang chờ xử lý"
+    };
+    
     toast({
-      title: "Document status updated",
-      description: `The document has been ${status.toLowerCase()}.`,
+      title: "Đã cập nhật trạng thái tài liệu",
+      description: `Tài liệu đã ${statusMessages[status]}.`,
       variant: status === "Rejected" ? "destructive" : "default",
     });
   };
@@ -57,8 +63,8 @@ const PendingApproval = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Pending Approval</h1>
-        <p className="text-muted-foreground">Review and process documents awaiting your approval.</p>
+        <h1 className="text-3xl font-bold">Chờ phê duyệt</h1>
+        <p className="text-muted-foreground">Xem xét và xử lý tài liệu đang chờ phê duyệt của bạn.</p>
       </div>
       
       {/* Search and filter */}
@@ -66,7 +72,7 @@ const PendingApproval = () => {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search documents..."
+            placeholder="Tìm kiếm tài liệu..."
             className="pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -86,14 +92,14 @@ const PendingApproval = () => {
       
       {/* Documents grid */}
       {isLoading ? (
-        <div className="flex justify-center p-8">Loading documents...</div>
+        <div className="flex justify-center p-8">Đang tải tài liệu...</div>
       ) : filteredDocuments.length === 0 ? (
         <div className="border rounded-lg p-16 text-center">
-          <h2 className="text-xl font-semibold mb-2">No documents found</h2>
+          <h2 className="text-xl font-semibold mb-2">Không tìm thấy tài liệu</h2>
           <p className="text-muted-foreground">
             {searchQuery || selectedStatus !== "all" 
-              ? "Try adjusting your search or filters"
-              : "There are no documents requiring your approval at this time"}
+              ? "Hãy điều chỉnh tìm kiếm hoặc bộ lọc của bạn"
+              : "Hiện không có tài liệu nào cần phê duyệt"}
           </p>
         </div>
       ) : (

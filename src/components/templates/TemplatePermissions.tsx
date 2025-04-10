@@ -19,11 +19,11 @@ export const TemplatePermissions: React.FC<TemplatePermissionsProps> = ({
   onChange
 }) => {
   const departments = [
-    'Finance',
-    'HR',
-    'Legal',
+    'Tài chính',
+    'Nhân sự',
+    'Pháp chế',
     'Marketing',
-    'Sales'
+    'Kinh doanh'
   ];
 
   const handleDepartmentChange = (department: string, checked: boolean) => {
@@ -42,32 +42,32 @@ export const TemplatePermissions: React.FC<TemplatePermissionsProps> = ({
     <div className="p-6">
       <div className="space-y-6">
         <div>
-          <h2 className="text-xl font-semibold mb-2">Template Permissions</h2>
-          <p className="text-sm text-muted-foreground">Control who can use and edit this template</p>
+          <h2 className="text-xl font-semibold mb-2">Quyền mẫu</h2>
+          <p className="text-sm text-muted-foreground">Kiểm soát ai có thể sử dụng và chỉnh sửa mẫu này</p>
         </div>
 
         <div className="space-y-6">
           <div className="space-y-3">
-            <Label htmlFor="access-level">Access Level</Label>
+            <Label htmlFor="access-level">Mức độ truy cập</Label>
             <Select
               value={formData.accessLevel}
               onValueChange={(value) => onChange({ accessLevel: value })}
             >
               <SelectTrigger id="access-level">
-                <SelectValue placeholder="Select access level" />
+                <SelectValue placeholder="Chọn mức độ truy cập" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="organization">Organization-wide</SelectItem>
-                <SelectItem value="department">Department-specific</SelectItem>
-                <SelectItem value="team">Team-specific</SelectItem>
-                <SelectItem value="user">User-specific</SelectItem>
+                <SelectItem value="organization">Toàn tổ chức</SelectItem>
+                <SelectItem value="department">Theo phòng ban</SelectItem>
+                <SelectItem value="team">Theo nhóm</SelectItem>
+                <SelectItem value="user">Theo người dùng</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {formData.accessLevel === 'department' && (
             <div className="space-y-3">
-              <Label>Departments with Access</Label>
+              <Label>Phòng ban có quyền truy cập</Label>
               <div className="space-y-2">
                 {departments.map((department) => (
                   <div key={department} className="flex items-center space-x-2">
@@ -89,7 +89,7 @@ export const TemplatePermissions: React.FC<TemplatePermissionsProps> = ({
           )}
 
           <div className="space-y-3">
-            <Label>Edit Permissions</Label>
+            <Label>Quyền chỉnh sửa</Label>
             <RadioGroup 
               value={formData.editPermission}
               onValueChange={(value) => onChange({ editPermission: value })}
@@ -97,15 +97,15 @@ export const TemplatePermissions: React.FC<TemplatePermissionsProps> = ({
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="creator" id="edit-creator" />
-                <Label htmlFor="edit-creator" className="text-sm font-normal">Creator Only</Label>
+                <Label htmlFor="edit-creator" className="text-sm font-normal">Chỉ người tạo</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="department-admins" id="edit-department-admins" />
-                <Label htmlFor="edit-department-admins" className="text-sm font-normal">Department Admins</Label>
+                <Label htmlFor="edit-department-admins" className="text-sm font-normal">Quản trị viên phòng ban</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="organization-admins" id="edit-organization-admins" />
-                <Label htmlFor="edit-organization-admins" className="text-sm font-normal">Organization Admins</Label>
+                <Label htmlFor="edit-organization-admins" className="text-sm font-normal">Quản trị viên tổ chức</Label>
               </div>
             </RadioGroup>
           </div>

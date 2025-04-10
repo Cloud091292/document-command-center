@@ -39,13 +39,13 @@ export const TemplateDialog: React.FC<TemplateDialogProps> = ({
       content: ''
     },
     dynamicFields: [
-      { id: 1, name: 'Client Name', type: 'text', description: 'Text field for client name' },
-      { id: 2, name: 'Contract Value', type: 'number', description: 'Numeric field for contract value' },
-      { id: 3, name: 'Start Date', type: 'date', description: 'Date field for contract start date' }
+      { id: 1, name: 'Tên khách hàng', type: 'text', description: 'Trường văn bản cho tên khách hàng' },
+      { id: 2, name: 'Giá trị hợp đồng', type: 'number', description: 'Trường số cho giá trị hợp đồng' },
+      { id: 3, name: 'Ngày bắt đầu', type: 'date', description: 'Trường ngày cho ngày bắt đầu hợp đồng' }
     ],
     permissions: {
       accessLevel: 'department',
-      departments: ['Finance'],
+      departments: ['Tài chính'],
       editPermission: 'creator'
     }
   });
@@ -65,13 +65,13 @@ export const TemplateDialog: React.FC<TemplateDialogProps> = ({
       
       onTemplateCreated();
       toast({
-        title: "Success",
-        description: "Template has been saved successfully.",
+        title: "Thành công",
+        description: "Mẫu đã được lưu thành công.",
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to save template. Please try again.",
+        title: "Lỗi",
+        description: "Không thể lưu mẫu. Vui lòng thử lại.",
         variant: "destructive",
       });
       console.error('Error saving template:', error);
@@ -107,7 +107,7 @@ export const TemplateDialog: React.FC<TemplateDialogProps> = ({
             >
               <ChevronLeft className="h-5 w-5" />
             </Button>
-            <SheetTitle>Create Template</SheetTitle>
+            <SheetTitle>Tạo mẫu</SheetTitle>
           </div>
         </SheetHeader>
         
@@ -123,28 +123,28 @@ export const TemplateDialog: React.FC<TemplateDialogProps> = ({
                 value="details" 
                 className="py-3 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none rounded-none"
               >
-                Template Details
+                Thông tin mẫu
               </TabsTrigger>
               
               <TabsTrigger 
                 value="content" 
                 className="py-3 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none rounded-none"
               >
-                Template Content
+                Nội dung mẫu
               </TabsTrigger>
               
               <TabsTrigger 
                 value="fields" 
                 className="py-3 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none rounded-none"
               >
-                Dynamic Fields
+                Trường động
               </TabsTrigger>
               
               <TabsTrigger 
                 value="permissions" 
                 className="py-3 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none rounded-none"
               >
-                Permissions
+                Quyền
               </TabsTrigger>
             </TabsList>
           </div>
@@ -182,13 +182,13 @@ export const TemplateDialog: React.FC<TemplateDialogProps> = ({
         
         <div className="border-t p-4 flex justify-end gap-2 mt-auto">
           <Button variant="outline" onClick={handleCancel}>
-            Cancel
+            Hủy
           </Button>
           <Button onClick={handleSave} disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : (
+            {isSubmitting ? "Đang lưu..." : (
               <>
                 <Save className="h-4 w-4 mr-2" />
-                Save Template
+                Lưu mẫu
               </>
             )}
           </Button>

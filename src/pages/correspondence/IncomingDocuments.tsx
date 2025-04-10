@@ -39,12 +39,12 @@ const IncomingDocuments = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Incoming Documents</h1>
-          <p className="text-muted-foreground">Manage incoming correspondence and documents.</p>
+          <h1 className="text-3xl font-bold">Tài liệu đến</h1>
+          <p className="text-muted-foreground">Quản lý thư từ và tài liệu đến.</p>
         </div>
         <Button onClick={() => setUploadDialogOpen(true)}>
           <Plus className="mr-2" />
-          Add Document
+          Thêm tài liệu
         </Button>
       </div>
       
@@ -52,7 +52,7 @@ const IncomingDocuments = () => {
         <div className="relative flex-1">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search documents..."
+            placeholder="Tìm kiếm tài liệu..."
             className="pl-8"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -60,7 +60,7 @@ const IncomingDocuments = () => {
         </div>
         <Button variant="outline" onClick={() => setFilterSheetOpen(true)}>
           <Filter className="mr-2 h-4 w-4" />
-          Filters
+          Lọc
         </Button>
         <div className="border rounded-md">
           <Button
@@ -84,10 +84,10 @@ const IncomingDocuments = () => {
 
       <Tabs value="all" className="w-full">
         <TabsList>
-          <TabsTrigger value="all">All Documents</TabsTrigger>
-          <TabsTrigger value="pending">Pending</TabsTrigger>
-          <TabsTrigger value="processed">Processed</TabsTrigger>
-          <TabsTrigger value="forwarded">Forwarded</TabsTrigger>
+          <TabsTrigger value="all">Tất cả tài liệu</TabsTrigger>
+          <TabsTrigger value="pending">Đang chờ</TabsTrigger>
+          <TabsTrigger value="processed">Đã xử lý</TabsTrigger>
+          <TabsTrigger value="forwarded">Đã chuyển tiếp</TabsTrigger>
         </TabsList>
         <TabsContent value="all" className="mt-6">
           {view === 'list' ? (
@@ -107,21 +107,21 @@ const IncomingDocuments = () => {
         <TabsContent value="pending">
           <Card>
             <CardContent className="p-6">
-              <p>Pending documents content</p>
+              <p>Nội dung tài liệu đang chờ</p>
             </CardContent>
           </Card>
         </TabsContent>
         <TabsContent value="processed">
           <Card>
             <CardContent className="p-6">
-              <p>Processed documents content</p>
+              <p>Nội dung tài liệu đã xử lý</p>
             </CardContent>
           </Card>
         </TabsContent>
         <TabsContent value="forwarded">
           <Card>
             <CardContent className="p-6">
-              <p>Forwarded documents content</p>
+              <p>Nội dung tài liệu đã chuyển tiếp</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -131,9 +131,9 @@ const IncomingDocuments = () => {
       <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
         <DialogContent className="max-w-3xl">
           <DialogHeader>
-            <DialogTitle>Add Incoming Document</DialogTitle>
+            <DialogTitle>Thêm tài liệu đến</DialogTitle>
             <DialogDescription>
-              Upload a new document and add required metadata.
+              Tải lên tài liệu mới và thêm metadata cần thiết.
             </DialogDescription>
           </DialogHeader>
           <DocumentUploadForm onClose={() => setUploadDialogOpen(false)} />
@@ -144,9 +144,9 @@ const IncomingDocuments = () => {
       <Sheet open={filterSheetOpen} onOpenChange={setFilterSheetOpen}>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Filter Documents</SheetTitle>
+            <SheetTitle>Lọc tài liệu</SheetTitle>
             <SheetDescription>
-              Narrow down your document results.
+              Thu hẹp kết quả tài liệu của bạn.
             </SheetDescription>
           </SheetHeader>
           <DocumentFilters onApply={() => setFilterSheetOpen(false)} />
@@ -157,7 +157,7 @@ const IncomingDocuments = () => {
       <Sheet open={detailViewOpen} onOpenChange={setDetailViewOpen}>
         <SheetContent className="sm:max-w-2xl">
           <SheetHeader>
-            <SheetTitle>Document Details</SheetTitle>
+            <SheetTitle>Chi tiết tài liệu</SheetTitle>
           </SheetHeader>
           {selectedDocument && (
             <DocumentDetailView 

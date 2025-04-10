@@ -39,68 +39,68 @@ const Templates = () => {
   const templates: Template[] = [
     {
       id: '1',
-      name: 'Standard Contract',
-      description: 'Standard contract template for customer agreements',
-      category: 'Contracts & Agreements',
+      name: 'Hợp đồng tiêu chuẩn',
+      description: 'Mẫu hợp đồng tiêu chuẩn cho thỏa thuận khách hàng',
+      category: 'Hợp đồng & Thỏa thuận',
       updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14), // 2 weeks ago
       author: {
-        name: 'John Doe',
+        name: 'Nguyễn Văn A',
       },
     },
     {
       id: '2',
-      name: 'NDA Template',
-      description: 'Non-disclosure agreement template for external partners',
-      category: 'Legal & Compliance Documents',
+      name: 'Mẫu NDA',
+      description: 'Mẫu thỏa thuận bảo mật cho đối tác bên ngoài',
+      category: 'Tài liệu pháp lý & Tuân thủ',
       updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30), // 1 month ago
       author: {
-        name: 'Jane Smith',
+        name: 'Trần Thị B',
       },
     },
     {
       id: '3',
-      name: 'Invoice Template',
-      description: 'Standard invoice template for billing customers',
-      category: 'Financial & Accounting Documents',
+      name: 'Mẫu hóa đơn',
+      description: 'Mẫu hóa đơn tiêu chuẩn để lập hóa đơn cho khách hàng',
+      category: 'Tài liệu tài chính & kế toán',
       updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 21), // 3 weeks ago
       author: {
-        name: 'Mike Johnson',
+        name: 'Lê Văn C',
       },
     },
     {
       id: '4',
-      name: 'Employee Contract',
-      description: 'Standard employment contract for new hires',
-      category: 'HR & Employee Records',
+      name: 'Hợp đồng lao động',
+      description: 'Hợp đồng lao động tiêu chuẩn cho nhân viên mới',
+      category: 'HR & Hồ sơ nhân viên',
       updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 60), // 2 months ago
       author: {
-        name: 'Sarah Williams',
+        name: 'Phạm Thị D',
       },
     },
     {
       id: '5',
-      name: 'Project Report',
-      description: 'Template for creating project status reports',
-      category: 'Operational Reports & Project Documentation',
+      name: 'Báo cáo dự án',
+      description: 'Mẫu để tạo báo cáo trạng thái dự án',
+      category: 'Báo cáo hoạt động & Tài liệu dự án',
       updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7), // 1 week ago
       author: {
-        name: 'David Brown',
+        name: 'Hoàng Văn E',
       },
     },
     {
       id: '6',
-      name: 'Purchase Order',
-      description: 'Standard purchase order template for vendors',
-      category: 'Procurement & Vendor Management',
+      name: 'Đơn đặt hàng',
+      description: 'Mẫu đơn đặt hàng tiêu chuẩn cho nhà cung cấp',
+      category: 'Mua sắm & Quản lý nhà cung cấp',
       updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3), // 3 days ago
       author: {
-        name: 'Emily Clark',
+        name: 'Đỗ Thị F',
       },
     },
   ];
 
   // Get unique categories for filter dropdown
-  const categories = ['All Categories', ...new Set(templates.map(t => t.category))];
+  const categories = ['Tất cả danh mục', ...new Set(templates.map(t => t.category))];
   
   // Filter templates by search query and category
   const filteredTemplates = templates.filter(template => {
@@ -127,13 +127,13 @@ const Templates = () => {
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     
     if (days < 7) {
-      return `Updated ${days} days ago`;
+      return `Cập nhật ${days} ngày trước`;
     } else if (days < 30) {
       const weeks = Math.floor(days / 7);
-      return `Updated ${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
+      return `Cập nhật ${weeks} ${weeks === 1 ? 'tuần' : 'tuần'} trước`;
     } else {
       const months = Math.floor(days / 30);
-      return `Updated ${months} ${months === 1 ? 'month' : 'months'} ago`;
+      return `Cập nhật ${months} ${months === 1 ? 'tháng' : 'tháng'} trước`;
     }
   };
 
@@ -144,15 +144,15 @@ const Templates = () => {
   const handlePreview = (templateId: string) => {
     // Preview template implementation
     toast({
-      title: "Template Preview",
-      description: `Previewing template ID: ${templateId}`,
+      title: "Xem trước mẫu",
+      description: `Đang xem trước mẫu ID: ${templateId}`,
     });
   };
 
   const handleTemplateCreated = () => {
     toast({
-      title: "Success",
-      description: "Template created successfully",
+      title: "Thành công",
+      description: "Đã tạo mẫu thành công",
     });
     setIsCreateDialogOpen(false);
   };
@@ -160,10 +160,10 @@ const Templates = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Document Templates</h1>
+        <h1 className="text-3xl font-bold">Mẫu tài liệu</h1>
         <Button onClick={handleCreateTemplate}>
           <Plus className="mr-2 h-4 w-4" />
-          Create Template
+          Tạo mẫu
         </Button>
       </div>
       
@@ -171,7 +171,7 @@ const Templates = () => {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input 
-            placeholder="Search templates..." 
+            placeholder="Tìm kiếm mẫu..." 
             className="pl-10" 
             value={searchQuery} 
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -181,11 +181,11 @@ const Templates = () => {
         <div className="flex gap-2">
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="All Categories" />
+              <SelectValue placeholder="Tất cả danh mục" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              {categories.filter(c => c !== 'All Categories').map((category) => (
+              <SelectItem value="all">Tất cả danh mục</SelectItem>
+              {categories.filter(c => c !== 'Tất cả danh mục').map((category) => (
                 <SelectItem key={category} value={category}>
                   {category}
                 </SelectItem>
@@ -195,11 +195,11 @@ const Templates = () => {
           
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Recently Updated" />
+              <SelectValue placeholder="Cập nhật gần đây" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="recent">Recently Updated</SelectItem>
-              <SelectItem value="name">Name (A-Z)</SelectItem>
+              <SelectItem value="recent">Cập nhật gần đây</SelectItem>
+              <SelectItem value="name">Tên (A-Z)</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -245,7 +245,7 @@ const Templates = () => {
                 className="text-xs" 
                 onClick={() => handlePreview(template.id)}
               >
-                Preview
+                Xem trước
               </Button>
             </CardFooter>
           </Card>
@@ -256,9 +256,9 @@ const Templates = () => {
           <div className="rounded-full bg-muted p-4 mb-4">
             <Plus className="h-6 w-6" />
           </div>
-          <h3 className="text-lg font-semibold mb-2">Create New Template</h3>
-          <p className="text-sm text-muted-foreground mb-6">Create a custom document template for your organization</p>
-          <Button onClick={handleCreateTemplate} className="mt-auto">Create Template</Button>
+          <h3 className="text-lg font-semibold mb-2">Tạo mẫu mới</h3>
+          <p className="text-sm text-muted-foreground mb-6">Tạo mẫu tài liệu tùy chỉnh cho tổ chức của bạn</p>
+          <Button onClick={handleCreateTemplate} className="mt-auto">Tạo mẫu</Button>
         </Card>
       </div>
 

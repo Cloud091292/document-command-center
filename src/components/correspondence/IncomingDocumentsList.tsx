@@ -19,11 +19,11 @@ export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({
   onViewDocument,
 }) => {
   if (isLoading) {
-    return <div className="flex justify-center p-8">Loading documents...</div>;
+    return <div className="flex justify-center p-8">Đang tải tài liệu...</div>;
   }
 
   if (documents.length === 0) {
-    return <div className="text-center p-8">No documents found.</div>;
+    return <div className="text-center p-8">Không tìm thấy tài liệu.</div>;
   }
 
   return (
@@ -31,13 +31,13 @@ export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Title</TableHead>
-            <TableHead>Classification</TableHead>
-            <TableHead>Sender</TableHead>
-            <TableHead>Date Received</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Reference Code</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead>Tiêu đề</TableHead>
+            <TableHead>Phân loại</TableHead>
+            <TableHead>Người gửi</TableHead>
+            <TableHead>Ngày nhận</TableHead>
+            <TableHead>Trạng thái</TableHead>
+            <TableHead>Mã tham chiếu</TableHead>
+            <TableHead className="text-right">Hành động</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -57,7 +57,8 @@ export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({
                       : "bg-blue-100 text-blue-800"
                   }
                 >
-                  {document.status}
+                  {document.status === "Pending" ? "Đang chờ" : 
+                   document.status === "Processed" ? "Đã xử lý" : "Đã chuyển tiếp"}
                 </Badge>
               </TableCell>
               <TableCell>{document.referenceCode}</TableCell>

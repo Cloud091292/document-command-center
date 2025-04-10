@@ -46,12 +46,12 @@ const MyRequests = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">My Requests</h1>
-          <p className="text-muted-foreground">View and manage your approval requests.</p>
+          <h1 className="text-3xl font-bold">Yêu cầu của tôi</h1>
+          <p className="text-muted-foreground">Xem và quản lý các yêu cầu phê duyệt của bạn.</p>
         </div>
         <Button className="flex items-center gap-2">
           <Plus className="h-4 w-4" />
-          Create Request
+          Tạo yêu cầu
         </Button>
       </div>
       
@@ -60,7 +60,7 @@ const MyRequests = () => {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search requests..."
+            placeholder="Tìm kiếm yêu cầu..."
             className="pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -80,14 +80,14 @@ const MyRequests = () => {
       
       {/* Requests grid */}
       {isLoading ? (
-        <div className="flex justify-center p-8">Loading requests...</div>
+        <div className="flex justify-center p-8">Đang tải yêu cầu...</div>
       ) : filteredRequests.length === 0 ? (
         <div className="border rounded-lg p-16 text-center">
-          <h2 className="text-xl font-semibold mb-2">No requests found</h2>
+          <h2 className="text-xl font-semibold mb-2">Không tìm thấy yêu cầu nào</h2>
           <p className="text-muted-foreground">
             {searchQuery || selectedStatus !== "all" 
-              ? "Try adjusting your search or filters"
-              : "You haven't submitted any requests yet"}
+              ? "Hãy điều chỉnh tìm kiếm hoặc bộ lọc của bạn"
+              : "Bạn chưa gửi bất kỳ yêu cầu nào"}
           </p>
         </div>
       ) : (

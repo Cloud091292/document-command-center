@@ -21,32 +21,32 @@ interface ClassificationType {
 const Classification = () => {
   // State for classifications
   const [documentTypes, setDocumentTypes] = useState<ClassificationType[]>([
-    { id: '1', name: 'Công văn', description: 'Official dispatches and correspondence', usageScope: 'All departments' },
-    { id: '2', name: 'Ủy quyền', description: 'Authorization documents', usageScope: 'Legal department' },
-    { id: '3', name: 'Thông báo', description: 'Announcements and notifications', usageScope: 'All departments' },
-    { id: '4', name: 'Quyết định', description: 'Decisions from management', usageScope: 'Management' },
-    { id: '5', name: 'Quy chế', description: 'Regulations', usageScope: 'HR department' },
-    { id: '6', name: 'Quy định', description: 'Rules and guidelines', usageScope: 'All departments' }
+    { id: '1', name: 'Công văn', description: 'Công văn và thư tín chính thức', usageScope: 'Tất cả phòng ban' },
+    { id: '2', name: 'Ủy quyền', description: 'Tài liệu ủy quyền', usageScope: 'Phòng pháp chế' },
+    { id: '3', name: 'Thông báo', description: 'Thông báo và thông tin', usageScope: 'Tất cả phòng ban' },
+    { id: '4', name: 'Quyết định', description: 'Quyết định từ ban lãnh đạo', usageScope: 'Ban lãnh đạo' },
+    { id: '5', name: 'Quy chế', description: 'Quy chế', usageScope: 'Phòng nhân sự' },
+    { id: '6', name: 'Quy định', description: 'Quy tắc và hướng dẫn', usageScope: 'Tất cả phòng ban' }
   ]);
 
   const [documentSources, setDocumentSources] = useState<ClassificationType[]>([
-    { id: '1', name: 'Cơ quan nhà nước', description: 'Government agencies', usageScope: 'External' },
-    { id: '2', name: 'Đảng', description: 'Party organizations', usageScope: 'External' },
-    { id: '3', name: 'Doanh nghiệp', description: 'Business entities', usageScope: 'External' },
-    { id: '4', name: 'Đối tác', description: 'Partners', usageScope: 'External' },
-    { id: '5', name: 'Khác', description: 'Other sources', usageScope: 'External' }
+    { id: '1', name: 'Cơ quan nhà nước', description: 'Cơ quan nhà nước', usageScope: 'Bên ngoài' },
+    { id: '2', name: 'Đảng', description: 'Tổ chức Đảng', usageScope: 'Bên ngoài' },
+    { id: '3', name: 'Doanh nghiệp', description: 'Các doanh nghiệp', usageScope: 'Bên ngoài' },
+    { id: '4', name: 'Đối tác', description: 'Đối tác', usageScope: 'Bên ngoài' },
+    { id: '5', name: 'Khác', description: 'Nguồn khác', usageScope: 'Bên ngoài' }
   ]);
 
   const [sendingUnits, setSendingUnits] = useState<ClassificationType[]>([
-    { id: '1', name: 'Sở Công thương', description: 'Department of Industry and Trade', usageScope: 'External' },
-    { id: '2', name: 'UBND thành phố Hà Nội', description: 'Hanoi People\'s Committee', usageScope: 'External' },
-    { id: '3', name: 'Cục thuế Tp Hà Nội', description: 'Hanoi Tax Department', usageScope: 'External' }
+    { id: '1', name: 'Sở Công thương', description: 'Sở Công thương', usageScope: 'Bên ngoài' },
+    { id: '2', name: 'UBND thành phố Hà Nội', description: 'Ủy ban Nhân dân thành phố Hà Nội', usageScope: 'Bên ngoài' },
+    { id: '3', name: 'Cục thuế Tp Hà Nội', description: 'Cục thuế thành phố Hà Nội', usageScope: 'Bên ngoài' }
   ]);
 
   const [receivingUnits, setReceivingUnits] = useState<ClassificationType[]>([
-    { id: '1', name: 'Văn phòng công ty', description: 'Company office', usageScope: 'Internal' },
-    { id: '2', name: 'Ban mua sắm', description: 'Procurement department', usageScope: 'Internal' },
-    { id: '3', name: 'Khối đầu tư', description: 'Investment division', usageScope: 'Internal' }
+    { id: '1', name: 'Văn phòng công ty', description: 'Văn phòng công ty', usageScope: 'Nội bộ' },
+    { id: '2', name: 'Ban mua sắm', description: 'Phòng mua sắm', usageScope: 'Nội bộ' },
+    { id: '3', name: 'Khối đầu tư', description: 'Bộ phận đầu tư', usageScope: 'Nội bộ' }
   ]);
 
   // State for modal
@@ -109,8 +109,8 @@ const Classification = () => {
           break;
       }
       toast({
-        title: "Classification updated",
-        description: `${newItem.name} has been successfully updated.`
+        title: "Đã cập nhật phân loại",
+        description: `${newItem.name} đã được cập nhật thành công.`
       });
     } else {
       // Add new item
@@ -129,8 +129,8 @@ const Classification = () => {
           break;
       }
       toast({
-        title: "Classification added",
-        description: `${newItem.name} has been successfully added.`
+        title: "Đã thêm phân loại",
+        description: `${newItem.name} đã được thêm thành công.`
       });
     }
 
@@ -154,8 +154,8 @@ const Classification = () => {
     }
     
     toast({
-      title: "Classification deleted",
-      description: "The classification has been successfully removed."
+      title: "Đã xóa phân loại",
+      description: "Phân loại đã được xóa thành công."
     });
   };
 
@@ -178,21 +178,21 @@ const Classification = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Classification Management</h1>
-          <p className="text-muted-foreground">Define and manage document classification schemes.</p>
+          <h1 className="text-3xl font-bold">Quản lý phân loại</h1>
+          <p className="text-muted-foreground">Xác định và quản lý các sơ đồ phân loại tài liệu.</p>
         </div>
         <Button onClick={openAddModal}>
           <Plus className="mr-2 h-4 w-4" />
-          Add Classification
+          Thêm phân loại
         </Button>
       </div>
       
       <Tabs defaultValue="document-types" value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid grid-cols-4 mb-6">
-          <TabsTrigger value="document-types">Document Types</TabsTrigger>
-          <TabsTrigger value="document-sources">Document Sources</TabsTrigger>
-          <TabsTrigger value="sending-units">Sending Units</TabsTrigger>
-          <TabsTrigger value="receiving-units">Receiving Units</TabsTrigger>
+          <TabsTrigger value="document-types">Loại tài liệu</TabsTrigger>
+          <TabsTrigger value="document-sources">Nguồn tài liệu</TabsTrigger>
+          <TabsTrigger value="sending-units">Đơn vị gửi</TabsTrigger>
+          <TabsTrigger value="receiving-units">Đơn vị nhận</TabsTrigger>
         </TabsList>
         
         <Card>
@@ -200,10 +200,10 @@ const Classification = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Usage Scope</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>Tên</TableHead>
+                  <TableHead>Mô tả</TableHead>
+                  <TableHead>Phạm vi sử dụng</TableHead>
+                  <TableHead className="text-right">Hành động</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -236,18 +236,18 @@ const Classification = () => {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{editingItem ? 'Edit Classification' : 'Add New Classification'}</DialogTitle>
+            <DialogTitle>{editingItem ? 'Sửa phân loại' : 'Thêm phân loại mới'}</DialogTitle>
             <DialogDescription>
               {editingItem 
-                ? 'Update the details of this classification.' 
-                : 'Fill in the details to add a new classification.'}
+                ? 'Cập nhật chi tiết của phân loại này.' 
+                : 'Điền thông tin để thêm phân loại mới.'}
             </DialogDescription>
           </DialogHeader>
           
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <label htmlFor="name" className="text-right">
-                Name
+                Tên
               </label>
               <Input
                 id="name"
@@ -260,7 +260,7 @@ const Classification = () => {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <label htmlFor="description" className="text-right">
-                Description
+                Mô tả
               </label>
               <Input
                 id="description"
@@ -272,7 +272,7 @@ const Classification = () => {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <label htmlFor="usageScope" className="text-right">
-                Usage Scope
+                Phạm vi sử dụng
               </label>
               <Input
                 id="usageScope"
@@ -286,10 +286,10 @@ const Classification = () => {
           
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>
-              Cancel
+              Hủy
             </Button>
             <Button onClick={handleSubmit} disabled={!formData.name}>
-              {editingItem ? 'Update' : 'Add'}
+              {editingItem ? 'Cập nhật' : 'Thêm'}
             </Button>
           </DialogFooter>
         </DialogContent>
