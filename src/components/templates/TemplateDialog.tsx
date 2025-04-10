@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TemplateDetails } from './TemplateDetails';
 import { TemplateContent } from './TemplateContent';
-import { TemplateDynamicFields } from './TemplateDynamicFields';
+import { TemplateDynamicFields } from './dynamic-fields';
 import { TemplatePermissions } from './TemplatePermissions';
 import { ChevronLeft, Save } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
