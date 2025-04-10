@@ -1,13 +1,14 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Download, File, Printer, Send, Share2 } from "lucide-react";
 import { format } from "date-fns";
-import { Document as DocumentType } from "@/hooks/useDocuments";
+import { DocumentItem } from "@/hooks/useDocuments";
 
 interface DocumentDetailViewProps {
-  document: DocumentType;
+  document: DocumentItem; // Updated to use DocumentItem instead of Document
   onClose: () => void;
 }
 

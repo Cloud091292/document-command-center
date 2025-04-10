@@ -85,10 +85,11 @@ const mockDocuments = [
 
 type DocumentType = 'incoming' | 'outgoing' | 'all';
 
-export type Document = typeof mockDocuments[0];
+// Rename Document to DocumentItem to avoid conflicts with global Document type
+export type DocumentItem = typeof mockDocuments[0];
 
 export const useDocuments = (type: DocumentType = 'all') => {
-  const [documents, setDocuments] = useState<Document[]>([]);
+  const [documents, setDocuments] = useState<DocumentItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

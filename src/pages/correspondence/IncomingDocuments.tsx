@@ -12,13 +12,13 @@ import { IncomingDocumentsGrid } from "@/components/correspondence/IncomingDocum
 import { DocumentUploadForm } from "@/components/correspondence/DocumentUploadForm";
 import { DocumentFilters } from "@/components/correspondence/DocumentFilters";
 import { DocumentDetailView } from "@/components/correspondence/DocumentDetailView";
-import { useDocuments } from "@/hooks/useDocuments";
+import { useDocuments, DocumentItem } from "@/hooks/useDocuments";
 
 const IncomingDocuments = () => {
   const [view, setView] = useState<'list' | 'grid'>('list');
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [filterSheetOpen, setFilterSheetOpen] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [selectedDocument, setSelectedDocument] = useState<DocumentItem | null>(null);
   const [detailViewOpen, setDetailViewOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -30,7 +30,7 @@ const IncomingDocuments = () => {
     doc.sender.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleViewDocument = (document: Document) => {
+  const handleViewDocument = (document: DocumentItem) => {
     setSelectedDocument(document);
     setDetailViewOpen(true);
   };

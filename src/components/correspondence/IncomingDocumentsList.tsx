@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Download, Eye, Send } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-import { Document as DocumentType } from "@/hooks/useDocuments";
+import { DocumentItem } from "@/hooks/useDocuments";
 
 interface IncomingDocumentsListProps {
-  documents: DocumentType[]; // Using the renamed type
+  documents: DocumentItem[]; // Updated to use DocumentItem instead of Document
   isLoading: boolean;
-  onViewDocument: (document: DocumentType) => void;
+  onViewDocument: (document: DocumentItem) => void;
 }
 
 export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({

@@ -1,15 +1,16 @@
+
 import React from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Download, Eye, File, Send } from "lucide-react";
 import { format } from "date-fns";
-import { Document as DocumentType } from "@/hooks/useDocuments";
+import { DocumentItem } from "@/hooks/useDocuments";
 
 interface IncomingDocumentsGridProps {
-  documents: DocumentType[];
+  documents: DocumentItem[]; // Updated to use DocumentItem instead of Document
   isLoading: boolean;
-  onViewDocument: (document: DocumentType) => void;
+  onViewDocument: (document: DocumentItem) => void;
 }
 
 export const IncomingDocumentsGrid: React.FC<IncomingDocumentsGridProps> = ({
@@ -32,7 +33,7 @@ export const IncomingDocumentsGrid: React.FC<IncomingDocumentsGridProps> = ({
     }
     acc[department].push(doc);
     return acc;
-  }, {} as Record<string, DocumentType[]>);
+  }, {} as Record<string, DocumentItem[]>);
 
   return (
     <div className="space-y-8">
