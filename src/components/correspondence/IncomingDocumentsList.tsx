@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { DocumentItem } from "@/hooks/useDocuments";
 
 interface IncomingDocumentsListProps {
-  documents: DocumentItem[]; // Updated to use DocumentItem instead of Document
+  documents: DocumentItem[];
   isLoading: boolean;
   onViewDocument: (document: DocumentItem) => void;
 }

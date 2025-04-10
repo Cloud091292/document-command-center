@@ -52,7 +52,7 @@ import {
   File,
   Folder,
   FileText,
-  FileIcon, // Changed from FilePdf to FileIcon
+  FileIcon,
   FileSpreadsheet,
   FileImage,
   Download,
@@ -65,102 +65,102 @@ import {
 
 // Mock document categories with counts
 const categories = [
-  { name: 'Legal & Licensing', count: 124, icon: FileText },
-  { name: 'Corporate Governance', count: 87, icon: FileText },
-  { name: 'HR & Labor', count: 92, icon: FileText },
-  { name: 'Products & Services', count: 145, icon: FileText },
-  { name: 'Administration & Others', count: 99, icon: FileText },
+  { name: 'Pháp lý & Cấp phép', count: 124, icon: FileText },
+  { name: 'Quản trị doanh nghiệp', count: 87, icon: FileText },
+  { name: 'Nhân sự & Lao động', count: 92, icon: FileText },
+  { name: 'Sản phẩm & Dịch vụ', count: 145, icon: FileText },
+  { name: 'Hành chính & Khác', count: 99, icon: FileText },
 ];
 
 // Mock documents
 const documents = [
   {
     id: 1,
-    name: 'Annual Report 2024.pdf',
+    name: 'Báo cáo thường niên 2024.pdf',
     type: 'PDF',
     size: '4.2 MB',
-    category: 'Corporate Governance',
-    department: 'Executive',
+    category: 'Quản trị doanh nghiệp',
+    department: 'Ban điều hành',
     lastModified: '2025-04-01',
-    status: 'Active',
-    icon: FileIcon, // Changed from FilePdf to FileIcon
+    status: 'Hoạt động',
+    icon: FileIcon,
   },
   {
     id: 2,
-    name: 'Employee Handbook.docx',
+    name: 'Sổ tay nhân viên.docx',
     type: 'Word',
     size: '2.1 MB',
-    category: 'HR & Labor',
-    department: 'HR',
+    category: 'Nhân sự & Lao động',
+    department: 'Nhân sự',
     lastModified: '2025-03-28',
-    status: 'Active',
+    status: 'Hoạt động',
     icon: FileText,
   },
   {
     id: 3,
-    name: 'Q1 Financial Statement.xlsx',
+    name: 'Báo cáo tài chính Q1.xlsx',
     type: 'Excel',
     size: '1.8 MB',
-    category: 'Corporate Governance',
-    department: 'Finance',
+    category: 'Quản trị doanh nghiệp',
+    department: 'Tài chính',
     lastModified: '2025-04-05',
-    status: 'Active',
+    status: 'Hoạt động',
     icon: FileSpreadsheet,
   },
   {
     id: 4,
-    name: 'Product Catalog 2025.pdf',
+    name: 'Danh mục sản phẩm 2025.pdf',
     type: 'PDF',
     size: '8.7 MB',
-    category: 'Products & Services',
+    category: 'Sản phẩm & Dịch vụ',
     department: 'Marketing',
     lastModified: '2025-03-15',
-    status: 'Active',
-    icon: FileIcon, // Changed from FilePdf to FileIcon
+    status: 'Hoạt động',
+    icon: FileIcon,
   },
   {
     id: 5,
-    name: 'Legal Compliance Checklist.xlsx',
+    name: 'Danh sách tuân thủ pháp lý.xlsx',
     type: 'Excel',
     size: '1.2 MB',
-    category: 'Legal & Licensing',
-    department: 'Legal',
+    category: 'Pháp lý & Cấp phép',
+    department: 'Pháp lý',
     lastModified: '2025-03-22',
-    status: 'Active',
+    status: 'Hoạt động',
     icon: FileSpreadsheet,
   },
   {
     id: 6,
-    name: 'Board Meeting Minutes.pdf',
+    name: 'Biên bản họp HĐQT.pdf',
     type: 'PDF',
     size: '1.5 MB',
-    category: 'Corporate Governance',
-    department: 'Executive',
+    category: 'Quản trị doanh nghiệp',
+    department: 'Ban điều hành',
     lastModified: '2025-04-02',
-    status: 'Active',
-    icon: FileIcon, // Changed from FilePdf to FileIcon
+    status: 'Hoạt động',
+    icon: FileIcon,
   },
   {
     id: 7,
-    name: 'Office Inventory.xlsx',
+    name: 'Kiểm kê văn phòng.xlsx',
     type: 'Excel',
     size: '0.8 MB',
-    category: 'Administration & Others',
-    department: 'Facility',
+    category: 'Hành chính & Khác',
+    department: 'Cơ sở vật chất',
     lastModified: '2025-03-18',
-    status: 'Active',
+    status: 'Hoạt động',
     icon: FileSpreadsheet,
   },
   {
     id: 8,
-    name: 'Brand Guidelines.pdf',
+    name: 'Hướng dẫn thương hiệu.pdf',
     type: 'PDF',
     size: '5.4 MB',
-    category: 'Products & Services',
+    category: 'Sản phẩm & Dịch vụ',
     department: 'Marketing',
     lastModified: '2025-02-28',
-    status: 'Active',
-    icon: FileIcon, // Changed from FilePdf to FileIcon
+    status: 'Hoạt động',
+    icon: FileIcon,
   },
 ];
 
@@ -172,81 +172,81 @@ const DocumentLibrary = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Document Library</h1>
-          <p className="text-muted-foreground">Browse and manage your documents</p>
+          <h1 className="text-3xl font-bold">Thư viện tài liệu</h1>
+          <p className="text-muted-foreground">Duyệt và quản lý tài liệu của bạn</p>
         </div>
         <div className="flex items-center gap-2">
           <Dialog>
             <DialogTrigger asChild>
               <Button className="h-9">
                 <FolderPlus className="mr-2 h-4 w-4" />
-                Create Folder
+                Tạo thư mục
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Create New Folder</DialogTitle>
+                <DialogTitle>Tạo thư mục mới</DialogTitle>
                 <DialogDescription>
-                  Create a new folder to organize your documents.
+                  Tạo một thư mục mới để tổ chức tài liệu của bạn.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="folder-name" className="text-right">
-                    Name
+                    Tên
                   </Label>
-                  <Input id="folder-name" className="col-span-3" placeholder="Enter folder name" />
+                  <Input id="folder-name" className="col-span-3" placeholder="Nhập tên thư mục" />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="folder-category" className="text-right">
-                    Category
+                    Danh mục
                   </Label>
                   <Select>
                     <SelectTrigger className="w-full col-span-3">
-                      <SelectValue placeholder="Select category" />
+                      <SelectValue placeholder="Chọn danh mục" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="legal">Legal & Licensing</SelectItem>
-                      <SelectItem value="corporate">Corporate Governance</SelectItem>
-                      <SelectItem value="hr">HR & Labor</SelectItem>
-                      <SelectItem value="products">Products & Services</SelectItem>
-                      <SelectItem value="admin">Administration & Others</SelectItem>
+                      <SelectItem value="legal">Pháp lý & Cấp phép</SelectItem>
+                      <SelectItem value="corporate">Quản trị doanh nghiệp</SelectItem>
+                      <SelectItem value="hr">Nhân sự & Lao động</SelectItem>
+                      <SelectItem value="products">Sản phẩm & Dịch vụ</SelectItem>
+                      <SelectItem value="admin">Hành chính & Khác</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label className="text-right">Permissions</Label>
+                  <Label className="text-right">Quyền hạn</Label>
                   <div className="col-span-3 space-y-2">
                     <div className="flex items-center space-x-2">
                       <Checkbox id="perm-admin" />
-                      <Label htmlFor="perm-admin">Admin</Label>
+                      <Label htmlFor="perm-admin">Quản trị viên</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="perm-editor" />
-                      <Label htmlFor="perm-editor">Editor</Label>
+                      <Label htmlFor="perm-editor">Biên tập viên</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="perm-viewer" defaultChecked />
-                      <Label htmlFor="perm-viewer">Viewer</Label>
+                      <Label htmlFor="perm-viewer">Người xem</Label>
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="folder-password" className="text-right">
-                    Password
+                    Mật khẩu
                   </Label>
-                  <Input id="folder-password" type="password" className="col-span-3" placeholder="Optional password" />
+                  <Input id="folder-password" type="password" className="col-span-3" placeholder="Mật khẩu tùy chọn" />
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline">Cancel</Button>
-                <Button>Create Folder</Button>
+                <Button variant="outline">Hủy</Button>
+                <Button>Tạo thư mục</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
           <Button variant="outline" className="h-9">
             <File className="mr-2 h-4 w-4" />
-            Upload Files
+            Tải lên tập tin
           </Button>
         </div>
       </div>
@@ -256,7 +256,7 @@ const DocumentLibrary = () => {
           <div className="relative">
             <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search documents..."
+              placeholder="Tìm kiếm tài liệu..."
               className="pl-8"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -265,7 +265,7 @@ const DocumentLibrary = () => {
           
           <Card>
             <CardHeader className="py-3">
-              <CardTitle className="text-sm font-medium">Categories</CardTitle>
+              <CardTitle className="text-sm font-medium">Danh mục</CardTitle>
             </CardHeader>
             <CardContent className="py-0 px-2">
               <div className="space-y-1">
@@ -288,12 +288,12 @@ const DocumentLibrary = () => {
           
           <Card>
             <CardHeader className="py-3">
-              <CardTitle className="text-sm font-medium">Filter By</CardTitle>
+              <CardTitle className="text-sm font-medium">Lọc theo</CardTitle>
             </CardHeader>
             <CardContent className="py-2">
               <div className="space-y-4">
                 <div>
-                  <Label className="text-xs mb-2 block">Document Type</Label>
+                  <Label className="text-xs mb-2 block">Loại tài liệu</Label>
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                       <Checkbox id="type-pdf" defaultChecked />
@@ -309,25 +309,25 @@ const DocumentLibrary = () => {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="type-other" defaultChecked />
-                      <Label htmlFor="type-other">Other</Label>
+                      <Label htmlFor="type-other">Khác</Label>
                     </div>
                   </div>
                 </div>
                 
                 <div>
-                  <Label className="text-xs mb-2 block">Status</Label>
+                  <Label className="text-xs mb-2 block">Trạng thái</Label>
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                       <Checkbox id="status-active" defaultChecked />
-                      <Label htmlFor="status-active">Active</Label>
+                      <Label htmlFor="status-active">Hoạt động</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="status-archived" />
-                      <Label htmlFor="status-archived">Archived</Label>
+                      <Label htmlFor="status-archived">Đã lưu trữ</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox id="status-draft" />
-                      <Label htmlFor="status-draft">Draft</Label>
+                      <Label htmlFor="status-draft">Bản nháp</Label>
                     </div>
                   </div>
                 </div>
@@ -360,7 +360,7 @@ const DocumentLibrary = () => {
                 </div>
                 <Button variant="outline" size="sm" className="ml-auto">
                   <Filter className="mr-2 h-4 w-4" />
-                  Advanced Filter
+                  Lọc nâng cao
                 </Button>
               </div>
             </CardHeader>
@@ -378,7 +378,7 @@ const DocumentLibrary = () => {
                         </div>
                         <h3 className="mt-3 text-sm font-medium">{category.name}</h3>
                         <p className="mt-1 text-xs text-muted-foreground">
-                          {category.count} documents
+                          {category.count} tài liệu
                         </p>
                       </div>
                     </div>
@@ -420,13 +420,13 @@ const DocumentLibrary = () => {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Type</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead>Department</TableHead>
-                        <TableHead>Last Modified</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
+                        <TableHead>Tên</TableHead>
+                        <TableHead>Loại</TableHead>
+                        <TableHead>Danh mục</TableHead>
+                        <TableHead>Phòng ban</TableHead>
+                        <TableHead>Sửa đổi lần cuối</TableHead>
+                        <TableHead>Trạng thái</TableHead>
+                        <TableHead className="text-right">Hành động</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -469,11 +469,11 @@ const DocumentLibrary = () => {
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                  <DropdownMenuItem>View Details</DropdownMenuItem>
-                                  <DropdownMenuItem>Edit Metadata</DropdownMenuItem>
-                                  <DropdownMenuItem>Move</DropdownMenuItem>
+                                  <DropdownMenuItem>Xem chi tiết</DropdownMenuItem>
+                                  <DropdownMenuItem>Chỉnh sửa metadata</DropdownMenuItem>
+                                  <DropdownMenuItem>Di chuyển</DropdownMenuItem>
                                   <DropdownMenuItem className="text-destructive">
-                                    Delete
+                                    Xóa
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>

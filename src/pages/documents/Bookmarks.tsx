@@ -70,102 +70,102 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 // Mock bookmark categories with counts
 const bookmarkCategories = [
-  { name: 'Important Documents', count: 15, icon: Tag },
-  { name: 'Project Files', count: 8, icon: Tag },
-  { name: 'Reference Materials', count: 12, icon: Tag },
-  { name: 'Approval Documents', count: 5, icon: Tag },
-  { name: 'Templates', count: 7, icon: Tag },
+  { name: 'Tài liệu quan trọng', count: 15, icon: Tag },
+  { name: 'Tệp dự án', count: 8, icon: Tag },
+  { name: 'Tài liệu tham khảo', count: 12, icon: Tag },
+  { name: 'Tài liệu phê duyệt', count: 5, icon: Tag },
+  { name: 'Mẫu tài liệu', count: 7, icon: Tag },
 ];
 
 // Mock bookmarked documents
 const bookmarkedDocuments = [
   {
     id: 1,
-    name: 'Annual Report 2024.pdf',
+    name: 'Báo cáo thường niên 2024.pdf',
     type: 'PDF',
-    category: 'Financial',
-    owner: 'Finance Department',
+    category: 'Tài chính',
+    owner: 'Phòng Tài chính',
     lastAccessed: '2025-04-06',
     dateBookmarked: '2025-03-20',
     icon: FileIcon,
-    tags: ['report', 'financial', 'annual'],
+    tags: ['báo cáo', 'tài chính', 'thường niên'],
   },
   {
     id: 2,
-    name: 'Marketing Strategy 2025.docx',
+    name: 'Chiến lược Marketing 2025.docx',
     type: 'Word',
     category: 'Marketing',
-    owner: 'Marketing Team',
+    owner: 'Đội Marketing',
     lastAccessed: '2025-04-05',
     dateBookmarked: '2025-03-15',
     icon: FileText,
-    tags: ['strategy', 'marketing', 'planning'],
+    tags: ['chiến lược', 'marketing', 'kế hoạch'],
   },
   {
     id: 3,
-    name: 'Q1 Sales Forecast.xlsx',
+    name: 'Dự báo doanh số Q1.xlsx',
     type: 'Excel',
-    category: 'Sales',
-    owner: 'Sales Department',
+    category: 'Bán hàng',
+    owner: 'Phòng Bán hàng',
     lastAccessed: '2025-04-07',
     dateBookmarked: '2025-03-28',
     icon: FileSpreadsheet,
-    tags: ['sales', 'forecast', 'quarterly'],
+    tags: ['bán hàng', 'dự báo', 'quý'],
   },
   {
     id: 4,
-    name: 'Product Launch Presentation.pdf',
+    name: 'Thuyết trình ra mắt sản phẩm.pdf',
     type: 'PDF',
-    category: 'Product',
-    owner: 'Product Team',
+    category: 'Sản phẩm',
+    owner: 'Đội Sản phẩm',
     lastAccessed: '2025-04-02',
     dateBookmarked: '2025-03-10',
     icon: FileIcon,
-    tags: ['product', 'launch', 'presentation'],
+    tags: ['sản phẩm', 'ra mắt', 'thuyết trình'],
   },
   {
     id: 5,
-    name: 'Employee Handbook.pdf',
+    name: 'Sổ tay nhân viên.pdf',
     type: 'PDF',
-    category: 'HR',
-    owner: 'HR Department',
+    category: 'Nhân sự',
+    owner: 'Phòng Nhân sự',
     lastAccessed: '2025-04-03',
     dateBookmarked: '2025-03-22',
     icon: FileIcon,
-    tags: ['handbook', 'hr', 'policy'],
+    tags: ['sổ tay', 'nhân sự', 'chính sách'],
   },
   {
     id: 6,
-    name: 'Board Meeting Minutes.docx',
+    name: 'Biên bản họp HĐQT.docx',
     type: 'Word',
-    category: 'Corporate',
-    owner: 'Executive Office',
+    category: 'Doanh nghiệp',
+    owner: 'Văn phòng Ban điều hành',
     lastAccessed: '2025-04-07',
     dateBookmarked: '2025-03-18',
     icon: FileText,
-    tags: ['meeting', 'minutes', 'board'],
+    tags: ['họp', 'biên bản', 'hội đồng quản trị'],
   },
   {
     id: 7,
-    name: 'Project Timeline.xlsx',
+    name: 'Tiến độ dự án.xlsx',
     type: 'Excel',
-    category: 'Project',
-    owner: 'Project Management',
+    category: 'Dự án',
+    owner: 'Quản lý dự án',
     lastAccessed: '2025-04-01',
     dateBookmarked: '2025-03-05',
     icon: FileSpreadsheet,
-    tags: ['project', 'timeline', 'planning'],
+    tags: ['dự án', 'tiến độ', 'kế hoạch'],
   },
   {
     id: 8,
-    name: 'Legal Compliance Report.pdf',
+    name: 'Báo cáo tuân thủ pháp lý.pdf',
     type: 'PDF',
-    category: 'Legal',
-    owner: 'Legal Department',
+    category: 'Pháp lý',
+    owner: 'Phòng Pháp lý',
     lastAccessed: '2025-04-04',
     dateBookmarked: '2025-03-25',
     icon: FileIcon,
-    tags: ['legal', 'compliance', 'report'],
+    tags: ['pháp lý', 'tuân thủ', 'báo cáo'],
   },
 ];
 
@@ -192,8 +192,8 @@ const Bookmarks = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Bookmarked Documents</h1>
-          <p className="text-muted-foreground">Access your bookmarked documents for quick reference</p>
+          <h1 className="text-3xl font-bold">Tài liệu đánh dấu</h1>
+          <p className="text-muted-foreground">Truy cập tài liệu đã đánh dấu để tham khảo nhanh</p>
         </div>
       </div>
       
@@ -203,7 +203,7 @@ const Bookmarks = () => {
           <div className="relative">
             <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search bookmarks..."
+              placeholder="Tìm kiếm đánh dấu..."
               className="pl-8"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -212,7 +212,7 @@ const Bookmarks = () => {
           
           <Card>
             <CardHeader className="py-3">
-              <h3 className="text-sm font-medium">Tags</h3>
+              <h3 className="text-sm font-medium">Thẻ</h3>
             </CardHeader>
             <CardContent className="py-0 px-2">
               <div className="space-y-1">
@@ -235,30 +235,30 @@ const Bookmarks = () => {
           
           <Card>
             <CardHeader className="py-3">
-              <h3 className="text-sm font-medium">Filter By</h3>
+              <h3 className="text-sm font-medium">Lọc theo</h3>
             </CardHeader>
             <CardContent className="py-2">
               <div className="space-y-4">
                 <div>
-                  <Label className="text-xs mb-2 block">Document Group</Label>
+                  <Label className="text-xs mb-2 block">Nhóm tài liệu</Label>
                   <Select>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="All Groups" />
+                      <SelectValue placeholder="Tất cả nhóm" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Groups</SelectItem>
-                      <SelectItem value="financial">Financial</SelectItem>
-                      <SelectItem value="hr">HR</SelectItem>
-                      <SelectItem value="legal">Legal</SelectItem>
+                      <SelectItem value="all">Tất cả nhóm</SelectItem>
+                      <SelectItem value="financial">Tài chính</SelectItem>
+                      <SelectItem value="hr">Nhân sự</SelectItem>
+                      <SelectItem value="legal">Pháp lý</SelectItem>
                       <SelectItem value="marketing">Marketing</SelectItem>
-                      <SelectItem value="product">Product</SelectItem>
-                      <SelectItem value="project">Project</SelectItem>
+                      <SelectItem value="product">Sản phẩm</SelectItem>
+                      <SelectItem value="project">Dự án</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 
                 <div>
-                  <Label className="text-xs mb-2 block">File Type</Label>
+                  <Label className="text-xs mb-2 block">Loại tệp</Label>
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                       <Checkbox id="type-pdf" defaultChecked />
@@ -276,19 +276,19 @@ const Bookmarks = () => {
                 </div>
                 
                 <div>
-                  <Label className="text-xs mb-2 block">Owner</Label>
+                  <Label className="text-xs mb-2 block">Chủ sở hữu</Label>
                   <Select>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="All Owners" />
+                      <SelectValue placeholder="Tất cả chủ sở hữu" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Owners</SelectItem>
-                      <SelectItem value="finance">Finance Department</SelectItem>
-                      <SelectItem value="hr">HR Department</SelectItem>
-                      <SelectItem value="legal">Legal Department</SelectItem>
-                      <SelectItem value="marketing">Marketing Team</SelectItem>
-                      <SelectItem value="product">Product Team</SelectItem>
-                      <SelectItem value="executive">Executive Office</SelectItem>
+                      <SelectItem value="all">Tất cả chủ sở hữu</SelectItem>
+                      <SelectItem value="finance">Phòng Tài chính</SelectItem>
+                      <SelectItem value="hr">Phòng Nhân sự</SelectItem>
+                      <SelectItem value="legal">Phòng Pháp lý</SelectItem>
+                      <SelectItem value="marketing">Đội Marketing</SelectItem>
+                      <SelectItem value="product">Đội Sản phẩm</SelectItem>
+                      <SelectItem value="executive">Văn phòng Ban điều hành</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -322,7 +322,7 @@ const Bookmarks = () => {
                 </div>
                 <Button variant="outline" size="sm" className="ml-auto">
                   <Filter className="mr-2 h-4 w-4" />
-                  Advanced Filter
+                  Lọc nâng cao
                 </Button>
               </div>
             </CardHeader>
@@ -341,7 +341,7 @@ const Bookmarks = () => {
                         </div>
                         <h3 className="mt-3 text-sm font-medium">{category.name}</h3>
                         <p className="mt-1 text-xs text-muted-foreground">
-                          {category.count} documents
+                          {category.count} tài liệu
                         </p>
                       </div>
                     </div>
@@ -390,12 +390,12 @@ const Bookmarks = () => {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Category</TableHead>
-                        <TableHead>File Type</TableHead>
-                        <TableHead>Owner</TableHead>
-                        <TableHead>Last Accessed</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
+                        <TableHead>Tên</TableHead>
+                        <TableHead>Danh mục</TableHead>
+                        <TableHead>Loại tệp</TableHead>
+                        <TableHead>Chủ sở hữu</TableHead>
+                        <TableHead>Truy cập gần đây</TableHead>
+                        <TableHead className="text-right">Hành động</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -439,9 +439,9 @@ const Bookmarks = () => {
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                  <DropdownMenuItem>View Details</DropdownMenuItem>
-                                  <DropdownMenuItem>Comment</DropdownMenuItem>
-                                  <DropdownMenuItem>Download</DropdownMenuItem>
+                                  <DropdownMenuItem>Xem chi tiết</DropdownMenuItem>
+                                  <DropdownMenuItem>Bình luận</DropdownMenuItem>
+                                  <DropdownMenuItem>Tải xuống</DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
                             </div>
@@ -508,7 +508,7 @@ const Bookmarks = () => {
                 <div className="text-center">
                   <FileIcon className="h-16 w-16 mx-auto text-muted-foreground" />
                   <p className="mt-4 text-muted-foreground">
-                    Document preview would be displayed here
+                    Bản xem trước tài liệu sẽ hiển thị ở đây
                   </p>
                 </div>
               </div>
@@ -517,29 +517,29 @@ const Bookmarks = () => {
             {/* Document Metadata */}
             <div className="w-full md:w-72 space-y-4">
               <div>
-                <h4 className="text-sm font-semibold mb-2">Document Info</h4>
+                <h4 className="text-sm font-semibold mb-2">Thông tin tài liệu</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Owner:</span>
+                    <span className="text-muted-foreground">Chủ sở hữu:</span>
                     <span>{selectedDocument?.owner}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">File Type:</span>
+                    <span className="text-muted-foreground">Loại tệp:</span>
                     <span>{selectedDocument?.type}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Bookmarked:</span>
+                    <span className="text-muted-foreground">Đánh dấu:</span>
                     <span>{selectedDocument?.dateBookmarked}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Last Accessed:</span>
+                    <span className="text-muted-foreground">Truy cập gần đây:</span>
                     <span>{selectedDocument?.lastAccessed}</span>
                   </div>
                 </div>
               </div>
               
               <div>
-                <h4 className="text-sm font-semibold mb-2">Tags</h4>
+                <h4 className="text-sm font-semibold mb-2">Thẻ</h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedDocument?.tags?.map((tag: string) => (
                     <Badge key={tag} variant="secondary">{tag}</Badge>
@@ -559,28 +559,28 @@ const Bookmarks = () => {
                   }}
                 >
                   <X className="mr-2 h-4 w-4" />
-                  Remove Bookmark
+                  Xóa đánh dấu
                 </Button>
                 <Button 
                   variant="outline" 
                   className="w-full"
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  Download
+                  Tải xuống
                 </Button>
                 <Button 
                   variant="outline" 
                   className="w-full"
                 >
                   <Share className="mr-2 h-4 w-4" />
-                  Share
+                  Chia sẻ
                 </Button>
                 <Button 
                   variant="outline" 
                   className="w-full"
                 >
                   <MessageSquare className="mr-2 h-4 w-4" />
-                  Comment
+                  Bình luận
                 </Button>
               </div>
             </div>
@@ -588,7 +588,7 @@ const Bookmarks = () => {
           
           <DialogFooter>
             <Button variant="outline" onClick={() => setPreviewOpen(false)}>
-              Close
+              Đóng
             </Button>
           </DialogFooter>
         </DialogContent>

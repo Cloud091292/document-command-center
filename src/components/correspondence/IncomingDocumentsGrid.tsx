@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { DocumentItem } from "@/hooks/useDocuments";
 
 interface IncomingDocumentsGridProps {
-  documents: DocumentItem[]; // Updated to use DocumentItem instead of Document
+  documents: DocumentItem[];
   isLoading: boolean;
   onViewDocument: (document: DocumentItem) => void;
 }
@@ -19,15 +19,15 @@ export const IncomingDocumentsGrid: React.FC<IncomingDocumentsGridProps> = ({
   onViewDocument,
 }) => {
   if (isLoading) {
-    return <div className="flex justify-center p-8">Loading documents...</div>;
+    return <div className="flex justify-center p-8">Đang tải tài liệu...</div>;
   }
 
   if (documents.length === 0) {
-    return <div className="text-center p-8">No documents found.</div>;
+    return <div className="text-center p-8">Không tìm thấy tài liệu.</div>;
   }
 
   const groupedByDepartment = documents.reduce((acc, doc) => {
-    const department = doc.department || 'Unassigned';
+    const department = doc.department || 'Chưa phân loại';
     if (!acc[department]) {
       acc[department] = [];
     }
@@ -66,14 +66,15 @@ export const IncomingDocumentsGrid: React.FC<IncomingDocumentsGridProps> = ({
                             : "bg-blue-100 text-blue-800"
                         }
                       >
-                        {document.status}
+                        {document.status === "Pending" ? "Đang chờ" : 
+                         document.status === "Processed" ? "Đã xử lý" : "Đã chuyển tiếp"}
                       </Badge>
                     </div>
                   </div>
                 </CardContent>
                 <CardFooter className="p-4 pt-0 flex justify-between">
                   <Button size="sm" variant="outline" onClick={() => onViewDocument(document)}>
-                    <Eye className="h-4 w-4 mr-1" /> View
+                    <Eye className="h-4 w-4 mr-1" /> Xem
                   </Button>
                   <div className="flex space-x-1">
                     <Button size="sm" variant="ghost">
