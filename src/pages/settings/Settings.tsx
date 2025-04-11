@@ -7,20 +7,20 @@ import { Settings as SettingsIcon, Link as LinkIcon, Database } from 'lucide-rea
 const Settings = () => {
   const settingsCategories = [
     {
-      title: "System Settings",
-      description: "Configure system preferences and access controls",
+      title: "Thiết lập hệ thống",
+      description: "Cấu hình tùy chọn hệ thống và kiểm soát truy cập",
       icon: <SettingsIcon className="h-5 w-5" />,
       link: "#"
     },
     {
-      title: "Integrations",
-      description: "Manage connections with external systems",
+      title: "Tích hợp hệ thống",
+      description: "Quản lý kết nối với các hệ thống bên ngoài",
       icon: <LinkIcon className="h-5 w-5" />,
       link: "/settings/integrations"
     },
     {
-      title: "Database Configuration",
-      description: "Configure database connections and storage settings",
+      title: "Cấu hình Database",
+      description: "Cấu hình kết nối cơ sở dữ liệu và thiết lập lưu trữ",
       icon: <Database className="h-5 w-5" />,
       link: "#"
     }
@@ -28,8 +28,8 @@ const Settings = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">System Settings</h1>
-      <p className="text-muted-foreground">Configure system preferences and integrations.</p>
+      <h1 className="text-3xl font-bold">Thiết lập hệ thống</h1>
+      <p className="text-muted-foreground">Cấu hình tùy chọn hệ thống và tích hợp.</p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {settingsCategories.map((category, index) => (

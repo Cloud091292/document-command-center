@@ -63,13 +63,13 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Document Management</SidebarGroupLabel>
+          <SidebarGroupLabel>Quản lý tài liệu</SidebarGroupLabel>
           <SidebarGroupContent>
             <Collapsible>
               <CollapsibleTrigger className="flex items-center w-full p-2 text-sm rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
                 <div className="flex items-center flex-1">
                   <FileText className="h-4 w-4 mr-2" />
-                  <span>Document Library</span>
+                  <span>Thư viện tài liệu</span>
                 </div>
                 <ChevronDown className="h-4 w-4" />
               </CollapsibleTrigger>
@@ -79,7 +79,7 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link to="/documents/all" className="pl-8">
                         <FolderOpen className="h-4 w-4" />
-                        <span>All Documents</span>
+                        <span>Tất cả tài liệu</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -87,7 +87,7 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link to="/documents/my-documents" className="pl-8">
                         <FileText className="h-4 w-4" />
-                        <span>My Documents</span>
+                        <span>Tài liệu của tôi</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -103,7 +103,7 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link to="/documents/trash" className="pl-8">
                         <Trash2 className="h-4 w-4" />
-                        <span>Trash</span>
+                        <span>Thùng rác</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -115,7 +115,7 @@ export function AppSidebar() {
               <CollapsibleTrigger className="flex items-center w-full p-2 text-sm rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
                 <div className="flex items-center flex-1">
                   <Send className="h-4 w-4 mr-2" />
-                  <span>Correspondence</span>
+                  <span>Quản lý công văn</span>
                 </div>
                 <ChevronDown className="h-4 w-4" />
               </CollapsibleTrigger>
@@ -125,7 +125,7 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link to="/correspondence/incoming" className="pl-8">
                         <FileDown className="h-4 w-4" />
-                        <span>Incoming</span>
+                        <span>Công văn đến</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -133,7 +133,7 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link to="/correspondence/outgoing" className="pl-8">
                         <FileUp className="h-4 w-4" />
-                        <span>Outgoing</span>
+                        <span>Công văn đi</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -141,7 +141,7 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link to="/correspondence/classification" className="pl-8">
                         <FileCog className="h-4 w-4" />
-                        <span>Classification</span>
+                        <span>Phân loại</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -153,7 +153,7 @@ export function AppSidebar() {
               <SidebarMenuButton asChild>
                 <Link to="/templates">
                   <FileStack className="h-4 w-4" />
-                  <span>Templates</span>
+                  <span>Biểu mẫu</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -161,14 +161,14 @@ export function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Approval Workflows</SidebarGroupLabel>
+          <SidebarGroupLabel>Trình ký & phê duyệt điện tử</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <Link to="/approval/my-requests">
                     <FileText className="h-4 w-4" />
-                    <span>My Requests</span>
+                    <span>Yêu cầu của tôi</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -176,7 +176,7 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <Link to="/approval/pending">
                     <CheckSquare className="h-4 w-4" />
-                    <span>Pending Approval</span>
+                    <span>Chờ phê duyệt</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -191,7 +191,7 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <Link to="/settings">
                     <Settings className="h-4 w-4" />
-                    <span>System Settings</span>
+                    <span>Thiết lập hệ thống</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
