@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { DocumentItem } from "@/hooks/useDocuments";
 
 interface DocumentDetailViewProps {
-  document: DocumentItem; // Updated to use DocumentItem instead of Document
+  document: DocumentItem;
   onClose: () => void;
 }
 
@@ -19,6 +19,26 @@ export const DocumentDetailView: React.FC<DocumentDetailViewProps> = ({
   const handleForward = () => {
     console.log("Forward document:", document.id);
     // Implement forward functionality
+  };
+
+  // Helper function to determine badge color based on status
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'Chưa hoàn trả':
+      case 'Tiếp nhận':
+        return "bg-yellow-100 text-yellow-800";
+      case 'Hiệu lực':
+      case 'Đã hoàn trả':
+        return "bg-green-100 text-green-800";
+      case 'Hết hiệu lực':
+      case 'Hủy bỏ':
+      case 'Khoanh nợ hồ sơ':
+        return "bg-red-100 text-red-800";
+      case 'Cho mượn':
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
   };
 
   return (
@@ -52,15 +72,7 @@ export const DocumentDetailView: React.FC<DocumentDetailViewProps> = ({
         <div className="space-y-3">
           <div className="flex justify-between">
             <span className="text-sm text-muted-foreground">Status</span>
-            <Badge
-              className={
-                document.status === "Pending"
-                  ? "bg-yellow-100 text-yellow-800"
-                  : document.status === "Processed"
-                  ? "bg-green-100 text-green-800"
-                  : "bg-blue-100 text-blue-800"
-              }
-            >
+            <Badge className={getStatusBadgeClass(document.status)}>
               {document.status}
             </Badge>
           </div>

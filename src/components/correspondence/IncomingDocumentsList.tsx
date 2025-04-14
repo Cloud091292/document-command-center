@@ -26,6 +26,40 @@ export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({
     return <div className="text-center p-8">Không tìm thấy tài liệu.</div>;
   }
 
+  // Helper function to determine badge color based on status
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'Chưa hoàn trả':
+      case 'Tiếp nhận':
+        return "bg-yellow-100 text-yellow-800";
+      case 'Hiệu lực':
+      case 'Đã hoàn trả':
+        return "bg-green-100 text-green-800";
+      case 'Hết hiệu lực':
+      case 'Hủy bỏ':
+      case 'Khoanh nợ hồ sơ':
+        return "bg-red-100 text-red-800";
+      case 'Cho mượn':
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  // Helper function to get status display text
+  const getStatusDisplayText = (status: string) => {
+    switch (status) {
+      case 'Chưa hoàn trả':
+        return "Đang chờ";
+      case 'Đã hoàn trả':
+        return "Đã xử lý";
+      case 'Cho mượn':
+        return "Đã chuyển tiếp";
+      default:
+        return status;
+    }
+  };
+
   return (
     <div className="border rounded-lg">
       <Table>
@@ -48,17 +82,8 @@ export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({
               <TableCell>{document.sender}</TableCell>
               <TableCell>{format(document.dateReceived, "MMM dd, yyyy")}</TableCell>
               <TableCell>
-                <Badge
-                  className={
-                    document.status === "Pending"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : document.status === "Processed"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-blue-100 text-blue-800"
-                  }
-                >
-                  {document.status === "Pending" ? "Đang chờ" : 
-                   document.status === "Processed" ? "Đã xử lý" : "Đã chuyển tiếp"}
+                <Badge className={getStatusBadgeClass(document.status)}>
+                  {getStatusDisplayText(document.status)}
                 </Badge>
               </TableCell>
               <TableCell>{document.referenceCode}</TableCell>
