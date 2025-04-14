@@ -59,9 +59,41 @@ const customerCategories = [
   { name: 'Tài liệu khách hàng khác', count: 67, icon: FileText },
 ];
 
+// Define file types for filter
+const fileTypes = [
+  { id: 'pdf', name: 'PDF', count: 156 },
+  { id: 'docx', name: 'DOCX', count: 98 },
+  { id: 'xlsx', name: 'XLSX', count: 67 },
+  { id: 'jpg', name: 'JPG/PNG', count: 42 },
+  { id: 'other', name: 'Khác', count: 23 },
+];
+
+// Define document statuses
+const documentStatuses = [
+  { id: 'active', name: 'Hiệu lực', count: 284 },
+  { id: 'expired', name: 'Hết hiệu lực', count: 102 },
+];
+
+// Define departments
+const departments = [
+  { id: 'legal', name: 'Pháp lý', count: 124 },
+  { id: 'hr', name: 'Nhân sự', count: 92 },
+  { id: 'finance', name: 'Tài chính', count: 87 },
+  { id: 'sales', name: 'Kinh doanh', count: 145 },
+];
+
 const DocumentLibrary = () => {
   const [activeTab, setActiveTab] = useState<'operational' | 'customer'>('operational');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
+
+  // Customer document specific filters
+  const [contractNumber, setContractNumber] = useState('');
+  const [subscriberId, setSubscriberId] = useState('');
+  const [fileStatus, setFileStatus] = useState<string | null>(null);
+  const [fileCondition, setFileCondition] = useState<string | null>(null);
 
   return (
     <div className="space-y-6">
