@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -93,8 +94,8 @@ const TrashBin = () => {
   const handlePermanentDelete = () => {
     console.log(`Permanently deleting document ${confirmDeleteId}`);
     setConfirmDeleteId(null);
-    toast({
-      title: "Đã xóa vĩnh viễn tài liệu",
+    // Fix: Changed from object format to string format for toast
+    toast("Đã xóa vĩnh viễn tài liệu", {
       description: "Tài liệu đã được xóa vĩnh viễn khỏi hệ thống.",
     });
   };
@@ -102,8 +103,8 @@ const TrashBin = () => {
   const handleRestoreDocument = () => {
     console.log(`Restoring document ${confirmRestoreId}`);
     setConfirmRestoreId(null);
-    toast({
-      title: "Đã khôi phục tài liệu",
+    // Fix: Changed from object format to string format for toast
+    toast("Đã khôi phục tài liệu", {
       description: "Tài liệu đã được khôi phục về thư mục gốc.",
     });
   };
