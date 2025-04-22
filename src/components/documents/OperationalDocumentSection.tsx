@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Card,
@@ -101,7 +100,6 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
   
-  // Mock files for demonstration
   const mockFiles: File[] = [
     {
       id: '1',
@@ -157,7 +155,6 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
     }
   ];
 
-  // Define document type categories
   const documentCategories = [
     'Hợp đồng', 'Phụ lục', 'Tài liệu đính kèm', 'Hồ sơ pháp lý', 
     'NDA', 'Dữ liệu thông tin', 'Hồ sơ thầu', 'Báo giá', 
@@ -478,7 +475,6 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
     return null;
   };
 
-  // File types for filtering
   const fileTypeOptions = [
     { id: 'pdf', label: 'PDF' },
     { id: 'docx', label: 'DOCX' },
@@ -487,14 +483,12 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
     { id: 'jpg', label: 'JPG/PNG' },
   ];
 
-  // Status options for filtering
   const statusOptions = [
     { id: 'active', label: 'Hiệu lực' },
     { id: 'expiring', label: 'Sắp hết hạn' },
     { id: 'expired', label: 'Hết hiệu lực' },
   ];
 
-  // Department options for filtering
   const departmentOptions = [
     { id: 'legal', label: 'Pháp lý' },
     { id: 'hr', label: 'Nhân sự' },
@@ -551,12 +545,12 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
               
               <div className="space-y-2">
                 <h4 className="font-medium text-sm">Trạng thái hồ sơ</h4>
-                <Select value={selectedStatus || ''} onValueChange={setSelectedStatus}>
+                <Select value={selectedStatus || "none"} onValueChange={setSelectedStatus}>
                   <SelectTrigger>
                     <SelectValue placeholder="Chọn trạng thái" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Tất cả</SelectItem>
+                    <SelectItem value="none">Tất cả</SelectItem>
                     {statusOptions.map(option => (
                       <SelectItem key={option.id} value={option.id}>{option.label}</SelectItem>
                     ))}
@@ -566,12 +560,12 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
               
               <div className="space-y-2">
                 <h4 className="font-medium text-sm">Bộ phận lưu trữ</h4>
-                <Select value={selectedDepartment || ''} onValueChange={setSelectedDepartment}>
+                <Select value={selectedDepartment || "none"} onValueChange={setSelectedDepartment}>
                   <SelectTrigger>
                     <SelectValue placeholder="Chọn bộ phận" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Tất cả</SelectItem>
+                    <SelectItem value="none">Tất cả</SelectItem>
                     {departmentOptions.map(option => (
                       <SelectItem key={option.id} value={option.id}>{option.label}</SelectItem>
                     ))}
@@ -674,12 +668,12 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                       
                       <div className="space-y-2">
                         <h4 className="font-medium text-sm">Trạng thái hồ sơ</h4>
-                        <Select value={selectedStatus || ''} onValueChange={setSelectedStatus}>
+                        <Select value={selectedStatus || "none"} onValueChange={setSelectedStatus}>
                           <SelectTrigger>
                             <SelectValue placeholder="Chọn trạng thái" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">Tất cả</SelectItem>
+                            <SelectItem value="none">Tất cả</SelectItem>
                             {statusOptions.map(option => (
                               <SelectItem key={option.id} value={option.id}>{option.label}</SelectItem>
                             ))}
@@ -689,12 +683,12 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                       
                       <div className="space-y-2">
                         <h4 className="font-medium text-sm">Bộ phận lưu trữ</h4>
-                        <Select value={selectedDepartment || ''} onValueChange={setSelectedDepartment}>
+                        <Select value={selectedDepartment || "none"} onValueChange={setSelectedDepartment}>
                           <SelectTrigger>
                             <SelectValue placeholder="Chọn bộ phận" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">Tất cả</SelectItem>
+                            <SelectItem value="none">Tất cả</SelectItem>
                             {departmentOptions.map(option => (
                               <SelectItem key={option.id} value={option.id}>{option.label}</SelectItem>
                             ))}
@@ -746,7 +740,6 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
         )}
       </div>
       
-      {/* Document Detail Dialog */}
       <DocumentDetailDialog 
         open={isDetailDialogOpen} 
         onOpenChange={setIsDetailDialogOpen}

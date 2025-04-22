@@ -56,6 +56,7 @@ export const DocumentFilters: React.FC<DocumentFiltersProps> = ({ onApply }) => 
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
                   <SelectItem value="official">Official</SelectItem>
                   <SelectItem value="confidential">Confidential</SelectItem>
                   <SelectItem value="internal">Internal</SelectItem>
@@ -94,6 +95,7 @@ export const DocumentFilters: React.FC<DocumentFiltersProps> = ({ onApply }) => 
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
                   <SelectItem value="pending">Pending</SelectItem>
                   <SelectItem value="processed">Processed</SelectItem>
                   <SelectItem value="forwarded">Forwarded</SelectItem>
@@ -117,6 +119,7 @@ export const DocumentFilters: React.FC<DocumentFiltersProps> = ({ onApply }) => 
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
                   <SelectItem value="hr">Human Resources</SelectItem>
                   <SelectItem value="finance">Finance</SelectItem>
                   <SelectItem value="operations">Operations</SelectItem>

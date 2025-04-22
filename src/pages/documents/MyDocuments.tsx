@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -13,7 +12,6 @@ import {
 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
-// Mock data for demonstration
 const mockDocuments = [
   { id: 1, name: 'Project Proposal', type: 'PDF', status: 'Published', modified: '2025-04-05', folder: 'Projects' },
   { id: 2, name: 'Meeting Minutes', type: 'DOCX', status: 'Draft', modified: '2025-04-06', folder: 'Meetings' },
@@ -32,13 +30,11 @@ const MyDocuments = () => {
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [isDetailViewOpen, setIsDetailViewOpen] = useState(false);
   
-  // Filters
   const [statusFilter, setStatusFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [folderFilter, setFolderFilter] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Form state for new document
   const [documentForm, setDocumentForm] = useState({
     name: '',
     type: 'PDF',
@@ -360,7 +356,6 @@ const MyDocuments = () => {
         </div>
       </div>
       
-      {/* Search and Filters */}
       <div className="flex flex-wrap gap-4 items-center bg-slate-50 p-4 rounded-lg">
         <div className="flex flex-1 items-center space-x-2">
           <Search className="h-4 w-4 opacity-50" />
@@ -418,7 +413,6 @@ const MyDocuments = () => {
         </div>
       </div>
       
-      {/* Document List */}
       <div className="border rounded-lg overflow-hidden">
         <Table>
           <TableHeader>
@@ -474,7 +468,6 @@ const MyDocuments = () => {
         </Table>
       </div>
       
-      {/* Document Detail Side Sheet */}
       <Sheet open={isDetailViewOpen} onOpenChange={setIsDetailViewOpen}>
         <SheetContent className="w-[400px] sm:w-[540px]">
           <SheetHeader>
@@ -485,7 +478,6 @@ const MyDocuments = () => {
               <div className="flex-1 overflow-auto py-6">
                 <div className="flex gap-4">
                   <div className="flex-1 space-y-6">
-                    {/* Document Preview */}
                     <div className="border rounded-lg p-6 min-h-[300px] flex items-center justify-center bg-slate-50">
                       <div className="text-center">
                         <FileText className="mx-auto h-16 w-16 text-gray-400" />
@@ -494,7 +486,6 @@ const MyDocuments = () => {
                       </div>
                     </div>
                     
-                    {/* Document Content Preview */}
                     <div className="space-y-3">
                       <h4 className="text-sm font-medium">Document Content</h4>
                       <div className="border rounded-lg p-4 min-h-[100px] text-sm">
@@ -503,7 +494,6 @@ const MyDocuments = () => {
                     </div>
                   </div>
                   
-                  {/* Metadata Sidebar */}
                   <div className="w-[200px] space-y-6">
                     <div>
                       <h4 className="text-sm font-medium mb-2">Metadata</h4>
@@ -546,7 +536,6 @@ const MyDocuments = () => {
                 </div>
               </div>
               
-              {/* Action Buttons */}
               <SheetFooter className="border-t pt-4">
                 <div className="flex flex-wrap w-full gap-2 justify-between">
                   <div className="flex gap-2">
