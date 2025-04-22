@@ -1,12 +1,12 @@
-
 import React, { useState } from 'react';
+import { DocumentUploadDialog } from '@/components/documents/DocumentUploadDialog';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+  } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -45,7 +45,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-// Updated operational categories based on requirements
 const operationalCategories = [
   { name: 'Pháp lý và Giấy phép', count: 124, icon: FileText },
   { name: 'Quản trị Doanh nghiệp', count: 87, icon: FileText },
@@ -57,7 +56,6 @@ const operationalCategories = [
   { name: 'Hành chính và Khác', count: 99, icon: FileText },
 ];
 
-// Updated customer categories based on requirements
 const customerCategories = [
   { name: 'Hồ sơ khiếu nại/tranh chấp', count: 56, icon: FileText },
   { name: 'Phiếu yêu cầu triển khai dịch vụ', count: 89, icon: FileText },
@@ -71,7 +69,6 @@ const customerCategories = [
   { name: 'Dữ liệu thông tin khách hàng', count: 167, icon: FileText },
 ];
 
-// Define file types for filter
 const fileTypes = [
   { id: 'pdf', name: 'PDF', count: 156 },
   { id: 'docx', name: 'DOCX/DOC', count: 98 },
@@ -81,14 +78,12 @@ const fileTypes = [
   { id: 'other', name: 'Khác', count: 23 },
 ];
 
-// Define document statuses
 const documentStatuses = [
   { id: 'active', name: 'Hiệu lực', count: 284 },
   { id: 'expiring', name: 'Sắp hết hạn', count: 45 },
   { id: 'expired', name: 'Hết hiệu lực', count: 102 },
 ];
 
-// Define departments
 const departments = [
   { id: 'legal', name: 'Pháp lý', count: 124 },
   { id: 'hr', name: 'Nhân sự', count: 92 },
@@ -99,7 +94,6 @@ const departments = [
   { id: 'admin', name: 'Hành chính', count: 42 },
 ];
 
-// Form types
 type FolderFormValues = {
   name: string;
   category: string;
@@ -120,14 +114,12 @@ const DocumentLibrary = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
   const [isCreateFolderOpen, setIsCreateFolderOpen] = useState(false);
 
-  // Customer document specific filters
   const [contractNumber, setContractNumber] = useState('');
   const [subscriberId, setSubscriberId] = useState('');
   const [customerId, setCustomerId] = useState('');
   const [fileStatus, setFileStatus] = useState<string | null>(null);
   const [fileCondition, setFileCondition] = useState<string | null>(null);
 
-  // Create folder form
   const folderForm = useForm<FolderFormValues>({
     defaultValues: {
       name: '',
@@ -151,12 +143,13 @@ const DocumentLibrary = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">Thư viện tài liệu</h1>
           <p className="text-muted-foreground">Duyệt và quản lý tài liệu của bạn</p>
         </div>
         <div className="flex items-center gap-2">
+          <DocumentUploadDialog />
           <Dialog open={isCreateFolderOpen} onOpenChange={setIsCreateFolderOpen}>
             <DialogTrigger asChild>
               <Button className="h-9">
@@ -455,7 +448,7 @@ const DocumentLibrary = () => {
         >
           <TabsList className="w-full grid grid-cols-2 mb-6">
             <TabsTrigger value="operational" className="text-base py-3">
-              Tài liệu vận hành
+              Tài liệu v���n hành
             </TabsTrigger>
             <TabsTrigger value="customer" className="text-base py-3">
               Tài liệu khách hàng
