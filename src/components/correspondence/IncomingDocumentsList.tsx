@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Download, Eye, Send } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
-import { DocumentItem } from "@/hooks/useDocuments";
+import { DocumentItem, DocumentStatus } from "@/hooks/useDocuments";
 
 interface IncomingDocumentsListProps {
   documents: DocumentItem[];
@@ -27,7 +27,7 @@ export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({
   }
 
   // Helper function to determine badge color based on status
-  const getStatusBadgeClass = (status: string) => {
+  const getStatusBadgeClass = (status: DocumentStatus) => {
     switch (status) {
       case 'Chưa hoàn trả':
       case 'Tiếp nhận':
@@ -47,7 +47,7 @@ export const IncomingDocumentsList: React.FC<IncomingDocumentsListProps> = ({
   };
 
   // Helper function to get status display text
-  const getStatusDisplayText = (status: string) => {
+  const getStatusDisplayText = (status: DocumentStatus) => {
     switch (status) {
       case 'Chưa hoàn trả':
         return "Đang chờ";

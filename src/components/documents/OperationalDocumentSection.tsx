@@ -5,7 +5,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -50,12 +49,16 @@ import {
   Calendar,
   Users,
   Building,
+  X,
 } from 'lucide-react';
 import { useDocuments } from '@/hooks/useDocuments';
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from '@/components/ui/navigation-menu';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Checkbox } from '@/components/ui/checkbox';
+import { DocumentDetailDialog } from './DocumentDetailDialog';
+import { format } from 'date-fns';
+import { toast } from 'sonner';
 
 interface Category {
   name: string;
@@ -73,6 +76,8 @@ interface File {
   category: string;
   status: 'Hiệu lực' | 'Hết hiệu lực';
   department: string;
+  description?: string;
+  fileUrl: string;
 }
 
 interface OperationalDocumentSectionProps {
@@ -90,6 +95,11 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [currentPath, setCurrentPath] = useState<string[]>([]);
   const [filterOpen, setFilterOpen] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
+  const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
+  const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
   
   // Mock files for demonstration
   const mockFiles: File[] = [
@@ -102,7 +112,9 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
       createdBy: 'Nguyễn Văn A',
       category: 'Hợp đồng',
       status: 'Hiệu lực',
-      department: 'Pháp lý'
+      department: 'Pháp lý',
+      description: 'Hợp đồng mua bán thiết bị năm 2025 với đối tác ABC.',
+      fileUrl: '#'
     },
     {
       id: '2',
@@ -113,7 +125,9 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
       createdBy: 'Trần Thị B',
       category: 'Phụ lục',
       status: 'Hiệu lực',
-      department: 'Pháp lý'
+      department: 'Pháp lý',
+      description: 'Phụ lục bổ sung thông tin chi tiết về điều khoản thanh toán.',
+      fileUrl: '#'
     },
     {
       id: '3',
@@ -124,7 +138,9 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
       createdBy: 'Lê Văn C',
       category: 'Biên bản',
       status: 'Hiệu lực',
-      department: 'Kinh doanh'
+      department: 'Kinh doanh',
+      description: 'Biên bản ghi nhận kết quả thương thảo giữa các bên.',
+      fileUrl: '#'
     },
     {
       id: '4',
@@ -135,7 +151,9 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
       createdBy: 'Phạm Thị D',
       category: 'Hồ sơ pháp lý',
       status: 'Hiệu lực',
-      department: 'Pháp lý'
+      department: 'Pháp lý',
+      description: 'Bộ hồ sơ pháp lý của khách hàng bao gồm giấy phép kinh doanh, điều lệ công ty và các tài liệu liên quan.',
+      fileUrl: '#'
     }
   ];
 
@@ -165,6 +183,25 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
         setSelectedCategory(null);
       }
     }
+  };
+
+  const handleViewDocument = (document: File) => {
+    setSelectedDocument(document);
+    setIsDetailDialogOpen(true);
+  };
+
+  const handleSaveBookmark = (document: File) => {
+    toast.success(`Đã lưu "${document.name}" vào mục Bookmarks`);
+  };
+
+  const handleFileTypeChange = (fileType: string) => {
+    setSelectedFileTypes(prev => {
+      if (prev.includes(fileType)) {
+        return prev.filter(type => type !== fileType);
+      } else {
+        return [...prev, fileType];
+      }
+    });
   };
 
   const renderBreadcrumb = () => {
@@ -200,6 +237,59 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
     );
   };
 
+  const renderActiveFilters = () => {
+    const hasActiveFilters = selectedFileTypes.length > 0 || selectedStatus || selectedDepartment;
+    
+    if (!hasActiveFilters) return null;
+    
+    return (
+      <div className="flex flex-wrap gap-2 items-center mb-4">
+        <span className="text-sm font-medium">Bộ lọc đang chọn:</span>
+        <div className="flex flex-wrap gap-2">
+          {selectedFileTypes.length > 0 && (
+            <Badge variant="outline" className="flex items-center gap-1 pl-2 bg-primary/5">
+              Định dạng: {selectedFileTypes.join(', ')}
+              <Button variant="ghost" size="icon" className="h-5 w-5 ml-1 -mr-1" onClick={() => setSelectedFileTypes([])}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          
+          {selectedStatus && (
+            <Badge variant="outline" className="flex items-center gap-1 pl-2 bg-primary/5">
+              Trạng thái: {selectedStatus}
+              <Button variant="ghost" size="icon" className="h-5 w-5 ml-1 -mr-1" onClick={() => setSelectedStatus(null)}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          
+          {selectedDepartment && (
+            <Badge variant="outline" className="flex items-center gap-1 pl-2 bg-primary/5">
+              Bộ phận: {selectedDepartment}
+              <Button variant="ghost" size="icon" className="h-5 w-5 ml-1 -mr-1" onClick={() => setSelectedDepartment(null)}>
+                <X className="h-3 w-3" />
+              </Button>
+            </Badge>
+          )}
+          
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => {
+              setSelectedFileTypes([]);
+              setSelectedStatus(null);
+              setSelectedDepartment(null);
+            }} 
+            className="text-xs h-7"
+          >
+            Xóa tất cả
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   const renderFolderContent = () => {
     if (selectedCategory) {
       return (
@@ -219,6 +309,8 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
               </ToggleGroup>
             </div>
           </div>
+          
+          {renderActiveFilters()}
           
           {viewMode === 'grid' ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -244,6 +336,7 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                 <div
                   key={file.id}
                   className="border rounded-lg p-4 hover:border-primary/50 hover:shadow-sm transition-all cursor-pointer"
+                  onClick={() => handleViewDocument(file)}
                 >
                   <div className="flex flex-col items-center text-center">
                     <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -262,12 +355,25 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                       <Button variant="ghost" size="icon" className="h-7 w-7">
                         <Download className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="icon" className="h-7 w-7">
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-7 w-7"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSaveBookmark(file);
+                        }}
+                      >
                         <Bookmark className="h-4 w-4" />
                       </Button>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-7 w-7">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-7 w-7"
+                            onClick={(e) => e.stopPropagation()}
+                          >
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
@@ -304,7 +410,10 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                   {mockFiles.map((file) => (
                     <TableRow key={file.id}>
                       <TableCell className="font-medium">
-                        <div className="flex items-center">
+                        <div 
+                          className="flex items-center cursor-pointer"
+                          onClick={() => handleViewDocument(file)}
+                        >
                           <FileText className="h-4 w-4 mr-2 text-muted-foreground" />
                           {file.name}
                         </div>
@@ -313,7 +422,7 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                         <Badge variant="outline">{file.type.toUpperCase()}</Badge>
                       </TableCell>
                       <TableCell>
-                        {file.createdAt.toLocaleDateString('vi-VN')}
+                        {format(file.createdAt, 'dd/MM/yyyy')}
                       </TableCell>
                       <TableCell>{file.createdBy}</TableCell>
                       <TableCell>
@@ -329,7 +438,12 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                           <Button variant="ghost" size="icon" className="h-8 w-8">
                             <Printer className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-8 w-8"
+                            onClick={() => handleSaveBookmark(file)}
+                          >
                             <Bookmark className="h-4 w-4" />
                           </Button>
                           <DropdownMenu>
@@ -364,6 +478,32 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
     return null;
   };
 
+  // File types for filtering
+  const fileTypeOptions = [
+    { id: 'pdf', label: 'PDF' },
+    { id: 'docx', label: 'DOCX' },
+    { id: 'xlsx', label: 'XLSX' },
+    { id: 'pptx', label: 'PPTX' },
+    { id: 'jpg', label: 'JPG/PNG' },
+  ];
+
+  // Status options for filtering
+  const statusOptions = [
+    { id: 'active', label: 'Hiệu lực' },
+    { id: 'expiring', label: 'Sắp hết hạn' },
+    { id: 'expired', label: 'Hết hiệu lực' },
+  ];
+
+  // Department options for filtering
+  const departmentOptions = [
+    { id: 'legal', label: 'Pháp lý' },
+    { id: 'hr', label: 'Nhân sự' },
+    { id: 'finance', label: 'Tài chính' },
+    { id: 'sales', label: 'Kinh doanh' },
+    { id: 'it', label: 'CNTT' },
+    { id: 'admin', label: 'Hành chính' },
+  ];
+
   return (
     <div className="flex flex-col sm:flex-row gap-4 items-start">
       <div className="w-full sm:w-72 space-y-4">
@@ -384,63 +524,73 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                 <Filter className="mr-2 h-4 w-4" />
                 Bộ lọc nâng cao
               </div>
-              <Badge variant="secondary" className="ml-2">3</Badge>
+              {(selectedFileTypes.length > 0 || selectedStatus || selectedDepartment) && (
+                <Badge variant="secondary" className="ml-2">
+                  {selectedFileTypes.length + (selectedStatus ? 1 : 0) + (selectedDepartment ? 1 : 0)}
+                </Badge>
+              )}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-80" align="start">
             <div className="space-y-4">
               <div className="space-y-2">
-                <h4 className="font-medium text-sm">Loại tài liệu</h4>
+                <h4 className="font-medium text-sm">Định dạng tài liệu</h4>
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="pdf" />
-                    <label htmlFor="pdf" className="text-sm">PDF</label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="docx" />
-                    <label htmlFor="docx" className="text-sm">DOCX</label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="xlsx" />
-                    <label htmlFor="xlsx" className="text-sm">XLSX</label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="image" />
-                    <label htmlFor="image" className="text-sm">JPG/PNG</label>
-                  </div>
+                  {fileTypeOptions.map(option => (
+                    <div key={option.id} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`ft-${option.id}`} 
+                        checked={selectedFileTypes.includes(option.id)}
+                        onCheckedChange={() => handleFileTypeChange(option.id)}
+                      />
+                      <label htmlFor={`ft-${option.id}`} className="text-sm">{option.label}</label>
+                    </div>
+                  ))}
                 </div>
               </div>
               
               <div className="space-y-2">
                 <h4 className="font-medium text-sm">Trạng thái hồ sơ</h4>
-                <Select>
+                <Select value={selectedStatus || ''} onValueChange={setSelectedStatus}>
                   <SelectTrigger>
                     <SelectValue placeholder="Chọn trạng thái" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="hieu-luc">Hiệu lực</SelectItem>
-                    <SelectItem value="het-hieu-luc">Hết hiệu lực</SelectItem>
+                    <SelectItem value="">Tất cả</SelectItem>
+                    {statusOptions.map(option => (
+                      <SelectItem key={option.id} value={option.id}>{option.label}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
               
               <div className="space-y-2">
                 <h4 className="font-medium text-sm">Bộ phận lưu trữ</h4>
-                <Select>
+                <Select value={selectedDepartment || ''} onValueChange={setSelectedDepartment}>
                   <SelectTrigger>
                     <SelectValue placeholder="Chọn bộ phận" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="phap-ly">Pháp lý</SelectItem>
-                    <SelectItem value="nhan-su">Nhân sự</SelectItem>
-                    <SelectItem value="tai-chinh">Tài chính</SelectItem>
-                    <SelectItem value="kinh-doanh">Kinh doanh</SelectItem>
+                    <SelectItem value="">Tất cả</SelectItem>
+                    {departmentOptions.map(option => (
+                      <SelectItem key={option.id} value={option.id}>{option.label}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
               
               <div className="flex justify-between pt-2">
-                <Button variant="outline" size="sm">Xóa bộ lọc</Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    setSelectedFileTypes([]);
+                    setSelectedStatus(null);
+                    setSelectedDepartment(null);
+                  }}
+                >
+                  Xóa bộ lọc
+                </Button>
                 <Button size="sm" onClick={() => setFilterOpen(false)}>Áp dụng</Button>
               </div>
             </div>
@@ -507,57 +657,63 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
                   <PopoverContent className="w-80">
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <h4 className="font-medium text-sm">Loại tài liệu</h4>
+                        <h4 className="font-medium text-sm">Định dạng tài liệu</h4>
                         <div className="grid grid-cols-2 gap-2">
-                          <div className="flex items-center space-x-2">
-                            <Checkbox id="filter-pdf" />
-                            <label htmlFor="filter-pdf" className="text-sm">PDF</label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox id="filter-docx" />
-                            <label htmlFor="filter-docx" className="text-sm">DOCX</label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox id="filter-xlsx" />
-                            <label htmlFor="filter-xlsx" className="text-sm">XLSX</label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox id="filter-image" />
-                            <label htmlFor="filter-image" className="text-sm">JPG/PNG</label>
-                          </div>
+                          {fileTypeOptions.map(option => (
+                            <div key={option.id} className="flex items-center space-x-2">
+                              <Checkbox 
+                                id={`filter-${option.id}`} 
+                                checked={selectedFileTypes.includes(option.id)}
+                                onCheckedChange={() => handleFileTypeChange(option.id)}
+                              />
+                              <label htmlFor={`filter-${option.id}`} className="text-sm">{option.label}</label>
+                            </div>
+                          ))}
                         </div>
                       </div>
                       
                       <div className="space-y-2">
                         <h4 className="font-medium text-sm">Trạng thái hồ sơ</h4>
-                        <Select>
+                        <Select value={selectedStatus || ''} onValueChange={setSelectedStatus}>
                           <SelectTrigger>
                             <SelectValue placeholder="Chọn trạng thái" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="hieu-luc">Hiệu lực</SelectItem>
-                            <SelectItem value="het-hieu-luc">Hết hiệu lực</SelectItem>
+                            <SelectItem value="">Tất cả</SelectItem>
+                            {statusOptions.map(option => (
+                              <SelectItem key={option.id} value={option.id}>{option.label}</SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </div>
                       
                       <div className="space-y-2">
                         <h4 className="font-medium text-sm">Bộ phận lưu trữ</h4>
-                        <Select>
+                        <Select value={selectedDepartment || ''} onValueChange={setSelectedDepartment}>
                           <SelectTrigger>
                             <SelectValue placeholder="Chọn bộ phận" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="phap-ly">Pháp lý</SelectItem>
-                            <SelectItem value="nhan-su">Nhân sự</SelectItem>
-                            <SelectItem value="tai-chinh">Tài chính</SelectItem>
-                            <SelectItem value="kinh-doanh">Kinh doanh</SelectItem>
+                            <SelectItem value="">Tất cả</SelectItem>
+                            {departmentOptions.map(option => (
+                              <SelectItem key={option.id} value={option.id}>{option.label}</SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </div>
                       
                       <div className="flex justify-between pt-2">
-                        <Button variant="outline" size="sm">Xóa bộ lọc</Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            setSelectedFileTypes([]);
+                            setSelectedStatus(null);
+                            setSelectedDepartment(null);
+                          }}
+                        >
+                          Xóa bộ lọc
+                        </Button>
                         <Button size="sm">Áp dụng</Button>
                       </div>
                     </div>
@@ -589,6 +745,27 @@ export const OperationalDocumentSection: React.FC<OperationalDocumentSectionProp
           </Card>
         )}
       </div>
+      
+      {/* Document Detail Dialog */}
+      <DocumentDetailDialog 
+        open={isDetailDialogOpen} 
+        onOpenChange={setIsDetailDialogOpen}
+        document={selectedDocument ? {
+          id: selectedDocument.id,
+          title: selectedDocument.name,
+          description: selectedDocument.description || '',
+          fileType: selectedDocument.type,
+          createdAt: selectedDocument.createdAt,
+          createdBy: selectedDocument.createdBy,
+          status: selectedDocument.status,
+          category: selectedDocument.category,
+          department: selectedDocument.department,
+          fileUrl: selectedDocument.fileUrl,
+          tags: ['Hợp đồng', 'Quan trọng', 'Đối tác ABC'],
+          validFrom: new Date('2024-01-01'),
+          validTo: new Date('2025-12-31'),
+        } : null}
+      />
     </div>
   );
 };
