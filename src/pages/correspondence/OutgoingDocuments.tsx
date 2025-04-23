@@ -1,24 +1,26 @@
+
 import React, { useState } from 'react';
-import { Grid, List, Search } from 'lucide-react';
+import { Grid, List, Search, FilePlus } from 'lucide-react';
+import { format, isAfter, isBefore } from 'date-fns';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageHeader } from "@/components/ui/page-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DocumentFilters } from './components/DocumentFilters';
-import { DocumentListView } from './components/DocumentListView';
-import { DocumentGridView } from './components/DocumentGridView';
-import { DocumentDetailSheet } from './components/DocumentDetailSheet';
-import type { OutgoingDocument, DocumentFilter } from './types/documents';
-import {
+import { 
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger
 } from "@/components/ui/dialog";
-import { FilePlus } from 'lucide-react';
+import { DocumentFilters } from './components/DocumentFilters';
+import { DocumentListView } from './components/DocumentListView';
+import { DocumentGridView } from './components/DocumentGridView';
+import { DocumentDetailSheet } from './components/DocumentDetailSheet';
 import { NewDocumentForm } from './components/NewDocumentForm';
+import type { OutgoingDocument, DocumentFilter } from './types/documents';
 
 // Mock data and constants
 const documentClassifications = ['Tài chính', 'Marketing', 'Pháp lý', 'Nhân sự', 'Vận hành'];
