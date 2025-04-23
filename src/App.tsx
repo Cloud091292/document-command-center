@@ -19,6 +19,7 @@ import PendingApproval from "./pages/approval/PendingApproval";
 import Settings from "./pages/settings/Settings";
 import Integrations from "./pages/settings/Integrations";
 import NotFound from "./pages/NotFound";
+import FormManagement from "./pages/forms/FormManagement";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/correspondence/outgoing" element={<OutgoingDocuments />} />
             <Route path="/correspondence/classification" element={<Classification />} />
             <Route path="/templates" element={<Templates />} />
+            <Route path="/forms" element={<FormManagement />} />
             <Route path="/approval/my-requests" element={<MyRequests />} />
             <Route path="/approval/pending" element={<PendingApproval />} />
             <Route path="/settings" element={<Settings />} />

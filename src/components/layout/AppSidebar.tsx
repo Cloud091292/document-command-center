@@ -1,197 +1,256 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   FileText,
-  Bookmark,
-  FolderOpen,
-  Trash2,
+  Inbox,
   Send,
-  FileDown,
-  FileUp,
-  FileCog,
-  FileStack,
-  CheckSquare,
+  Tag,
+  BookMarked,
+  FileArchive,
+  Trash2,
+  ClipboardCheck,
+  Clock,
   Settings,
-  ChevronDown
+  FileUp,
+  FileQuestion,
 } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+import { useMobile } from '@/hooks/use-mobile';
 
 export function AppSidebar() {
+  const location = useLocation();
+  const { isMobile } = useMobile();
+
+  const isActive = (path: string) => {
+    return location.pathname.startsWith(path);
+  };
+
+  const documentMenuItems = [
+    {
+      title: 'Thư viện tài liệu',
+      path: '/documents/all',
+      icon: FileText,
+    },
+    {
+      title: 'Tài liệu của tôi',
+      path: '/documents/my-documents',
+      icon: FileArchive,
+    },
+    {
+      title: 'Đánh dấu',
+      path: '/documents/bookmarks',
+      icon: BookMarked,
+    },
+    {
+      title: 'Thùng rác',
+      path: '/documents/trash',
+      icon: Trash2,
+    },
+  ];
+
+  const correspondenceMenuItems = [
+    {
+      title: 'Công văn đến',
+      path: '/correspondence/incoming',
+      icon: Inbox,
+    },
+    {
+      title: 'Công văn đi',
+      path: '/correspondence/outgoing',
+      icon: Send,
+    },
+    {
+      title: 'Phân loại',
+      path: '/correspondence/classification',
+      icon: Tag,
+    },
+  ];
+
+  const approvalMenuItems = [
+    {
+      title: 'Yêu cầu của tôi',
+      path: '/approval/my-requests',
+      icon: FileUp,
+    },
+    {
+      title: 'Chờ phê duyệt',
+      path: '/approval/pending',
+      icon: Clock,
+    },
+  ];
+
+  const mainMenuItems = [
+    {
+      title: 'Dashboard',
+      path: '/',
+      icon: LayoutDashboard,
+    },
+    {
+      title: 'Mẫu tài liệu',
+      path: '/templates',
+      icon: ClipboardCheck,
+    },
+    {
+      title: 'Biểu mẫu',
+      path: '/forms',
+      icon: FileQuestion,
+    },
+  ];
+
+  const sidebarMenuClasses =
+    'flex items-center gap-2 w-full p-2 hover:bg-accent rounded-md transition-colors text-sm font-medium';
+
   return (
-    <Sidebar>
-      <SidebarHeader className="flex items-center px-4 py-3">
-        <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-            <FileText className="h-5 w-5 text-white" />
+    <Sidebar className="border-r border-[#E9EBEF] w-[280px]">
+      <div className="flex h-14 items-center px-4 border-b">
+        <Link to="/" className="font-semibold flex items-center gap-2">
+          <div className="h-8 w-8 rounded-md bg-primary-600 flex items-center justify-center text-white font-bold">
+            D
           </div>
-          <div>
-            <h1 className="text-lg font-bold">DMS</h1>
-            <p className="text-xs text-muted-foreground">Document Management</p>
-          </div>
-        </div>
-      </SidebarHeader>
-      <SidebarContent>
+          <span className="text-lg">DocSystem</span>
+        </Link>
+        {isMobile && (
+          <SidebarTrigger className="ml-auto">
+            <button className="p-2">
+              <span className="sr-only">Toggle Menu</span>
+            </button>
+          </SidebarTrigger>
+        )}
+      </div>
+      <SidebarContent className="p-4">
         <SidebarGroup>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link to="/">
-                  <LayoutDashboard className="h-4 w-4" />
-                  <span>Dashboard</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Quản lý tài liệu</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <Collapsible>
-              <CollapsibleTrigger className="flex items-center w-full p-2 text-sm rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                <div className="flex items-center flex-1">
-                  <FileText className="h-4 w-4 mr-2" />
-                  <span>Thư viện tài liệu</span>
-                </div>
-                <ChevronDown className="h-4 w-4" />
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to="/documents/all" className="pl-8">
-                        <FolderOpen className="h-4 w-4" />
-                        <span>Tất cả tài liệu</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to="/documents/my-documents" className="pl-8">
-                        <FileText className="h-4 w-4" />
-                        <span>Tài liệu của tôi</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to="/documents/bookmarks" className="pl-8">
-                        <Bookmark className="h-4 w-4" />
-                        <span>Bookmarks</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to="/documents/trash" className="pl-8">
-                        <Trash2 className="h-4 w-4" />
-                        <span>Thùng rác</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </CollapsibleContent>
-            </Collapsible>
-
-            <Collapsible>
-              <CollapsibleTrigger className="flex items-center w-full p-2 text-sm rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-                <div className="flex items-center flex-1">
-                  <Send className="h-4 w-4 mr-2" />
-                  <span>Quản lý công văn</span>
-                </div>
-                <ChevronDown className="h-4 w-4" />
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to="/correspondence/incoming" className="pl-8">
-                        <FileDown className="h-4 w-4" />
-                        <span>Công văn đến</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to="/correspondence/outgoing" className="pl-8">
-                        <FileUp className="h-4 w-4" />
-                        <span>Công văn đi</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <Link to="/correspondence/classification" className="pl-8">
-                        <FileCog className="h-4 w-4" />
-                        <span>Phân loại</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </CollapsibleContent>
-            </Collapsible>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link to="/templates">
-                  <FileStack className="h-4 w-4" />
-                  <span>Biểu mẫu</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Trình ký & phê duyệt điện tử</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link to="/approval/my-requests">
-                    <FileText className="h-4 w-4" />
-                    <span>Yêu cầu của tôi</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link to="/approval/pending">
-                    <CheckSquare className="h-4 w-4" />
-                    <span>Chờ phê duyệt</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {mainMenuItems.map((item) => (
+                <SidebarMenuItem key={item.path} className="mb-1">
+                  <SidebarMenuButton asChild>
+                    <Link
+                      to={item.path}
+                      className={`${sidebarMenuClasses} ${
+                        (item.path === '/' && location.pathname === '/') ||
+                        (item.path !== '/' && isActive(item.path))
+                          ? 'bg-accent text-accent-foreground'
+                          : 'transparent'
+                      }`}
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup>
+        <SidebarGroup className="mt-8">
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground mb-2">
+            Tài liệu
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {documentMenuItems.map((item) => (
+                <SidebarMenuItem key={item.path} className="mb-1">
+                  <SidebarMenuButton asChild>
+                    <Link
+                      to={item.path}
+                      className={`${sidebarMenuClasses} ${
+                        isActive(item.path)
+                          ? 'bg-accent text-accent-foreground'
+                          : 'transparent'
+                      }`}
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="mt-8">
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground mb-2">
+            Công văn
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {correspondenceMenuItems.map((item) => (
+                <SidebarMenuItem key={item.path} className="mb-1">
+                  <SidebarMenuButton asChild>
+                    <Link
+                      to={item.path}
+                      className={`${sidebarMenuClasses} ${
+                        isActive(item.path)
+                          ? 'bg-accent text-accent-foreground'
+                          : 'transparent'
+                      }`}
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="mt-8">
+          <SidebarGroupLabel className="text-xs font-medium text-muted-foreground mb-2">
+            Phê duyệt
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {approvalMenuItems.map((item) => (
+                <SidebarMenuItem key={item.path} className="mb-1">
+                  <SidebarMenuButton asChild>
+                    <Link
+                      to={item.path}
+                      className={`${sidebarMenuClasses} ${
+                        isActive(item.path)
+                          ? 'bg-accent text-accent-foreground'
+                          : 'transparent'
+                      }`}
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="mt-auto pt-4">
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link to="/settings">
+                  <Link
+                    to="/settings"
+                    className={`${sidebarMenuClasses} ${
+                      isActive('/settings')
+                        ? 'bg-accent text-accent-foreground'
+                        : 'transparent'
+                    }`}
+                  >
                     <Settings className="h-4 w-4" />
-                    <span>Thiết lập hệ thống</span>
+                    <span>Cài đặt</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -199,13 +258,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
-      <SidebarFooter className="px-4 py-3 border-t">
-        <div className="text-xs text-muted-foreground">
-          <p>DMS v1.0</p>
-          <p>© 2025 All rights reserved</p>
-        </div>
-      </SidebarFooter>
     </Sidebar>
   );
 }
