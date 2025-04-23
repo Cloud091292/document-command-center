@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -27,11 +26,11 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export function AppSidebar() {
   const location = useLocation();
-  const { isMobile } = useMobile();
+  const isMobile = useIsMobile();
 
   const isActive = (path: string) => {
     return location.pathname.startsWith(path);
