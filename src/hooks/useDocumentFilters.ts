@@ -57,17 +57,18 @@ export const useDocumentFilters = ({ initialType, initialView }: UseDocumentFilt
       setOperationalFilters(prev => {
         const newFilters = { ...prev };
         
+        // Check if the property is an array
         if (Array.isArray(prev[type])) {
           if (value) {
             // For array types with a specific value to remove
-            newFilters[type] = (prev[type] as string[]).filter(item => item !== value);
+            newFilters[type as keyof typeof newFilters] = (prev[type] as string[]).filter(item => item !== value);
           } else {
             // Reset the entire array
-            newFilters[type] = [];
+            newFilters[type as keyof typeof newFilters] = [];
           }
         } else {
           // For string types
-          newFilters[type] = '';
+          newFilters[type as keyof typeof newFilters] = '';
         }
         
         return newFilters;
@@ -76,17 +77,18 @@ export const useDocumentFilters = ({ initialType, initialView }: UseDocumentFilt
       setCustomerFilters(prev => {
         const newFilters = { ...prev };
         
+        // Check if the property is an array
         if (Array.isArray(prev[type])) {
           if (value) {
             // For array types with a specific value to remove
-            newFilters[type] = (prev[type] as string[]).filter(item => item !== value);
+            newFilters[type as keyof typeof newFilters] = (prev[type] as string[]).filter(item => item !== value);
           } else {
             // Reset the entire array
-            newFilters[type] = [];
+            newFilters[type as keyof typeof newFilters] = [];
           }
         } else {
           // For string types
-          newFilters[type] = '';
+          newFilters[type as keyof typeof newFilters] = '';
         }
         
         return newFilters;
