@@ -1,3 +1,4 @@
+
 import { useState, useCallback, useEffect } from 'react';
 import { DocumentFilter } from '@/components/documents/DocumentFilterPanel';
 import { DocumentType, Folder, DocumentFile } from '@/types/document';
@@ -56,10 +57,17 @@ export const useDocumentFilters = ({ initialType, initialView }: UseDocumentFilt
       setOperationalFilters(prev => {
         const newFilters = { ...prev };
         
-        if (Array.isArray(prev[type]) && value) {
-          newFilters[type] = (prev[type] as string[]).filter(item => item !== value);
+        if (Array.isArray(prev[type])) {
+          if (value) {
+            // For array types with a specific value to remove
+            newFilters[type] = (prev[type] as string[]).filter(item => item !== value);
+          } else {
+            // Reset the entire array
+            newFilters[type] = [];
+          }
         } else {
-          newFilters[type] = Array.isArray(prev[type]) ? [] : '';
+          // For string types
+          newFilters[type] = '';
         }
         
         return newFilters;
@@ -68,10 +76,17 @@ export const useDocumentFilters = ({ initialType, initialView }: UseDocumentFilt
       setCustomerFilters(prev => {
         const newFilters = { ...prev };
         
-        if (Array.isArray(prev[type]) && value) {
-          newFilters[type] = (prev[type] as string[]).filter(item => item !== value);
+        if (Array.isArray(prev[type])) {
+          if (value) {
+            // For array types with a specific value to remove
+            newFilters[type] = (prev[type] as string[]).filter(item => item !== value);
+          } else {
+            // Reset the entire array
+            newFilters[type] = [];
+          }
         } else {
-          newFilters[type] = Array.isArray(prev[type]) ? [] : '';
+          // For string types
+          newFilters[type] = '';
         }
         
         return newFilters;

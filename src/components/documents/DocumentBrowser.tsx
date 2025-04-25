@@ -6,6 +6,9 @@ import { DocumentCard } from './DocumentCard';
 import { DocumentList } from './DocumentList';
 import { DocumentBreadcrumb } from './DocumentBreadcrumb';
 import { DocumentHeader } from './DocumentHeader';
+import { DocumentFilterPanel } from './DocumentFilterPanel';
+import { ActiveFilters } from './ActiveFilters';
+import { useDocumentFilters } from '@/hooks/useDocumentFilters';
 import { Grid2X2, List, ArrowUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -38,8 +41,31 @@ export function DocumentBrowser({ initialView }: DocumentBrowserProps) {
     permanentlyDelete
   } = useDocumentManager('operational', 'grid', 'name-asc', initialView);
 
+  const {
+    searchQuery,
+    setSearchQuery,
+    isFilterPanelOpen,
+    toggleFilterPanel,
+    activeFilters,
+    handleFilterChange,
+    removeFilter,
+    resetFilters,
+  } = useDocumentFilters({
+    initialType: activeType,
+    initialView
+  });
+
   const handleSortChange = (option: SortOption) => {
     setSortOption(option);
+  };
+
+  // Mock filter options for the filter panel
+  const filterOptions = {
+    categories: ["Pháp lý", "Tài chính", "Nhân sự", "Vận hành", "Kỹ thuật", "Marketing"],
+    departments: ["Ban giám đốc", "Phòng tài chính", "Phòng nhân sự", "Phòng vận hành", "Phòng kỹ thuật"],
+    statuses: ["Hiệu lực", "Hết hiệu lực", "Đang xét duyệt", "Bản nháp"],
+    fileTypes: ["pdf", "docx", "xlsx", "jpg", "png", "txt"],
+    documentConditions: ["Đầy đủ", "Thiếu", "Cần bổ sung", "Hết hạn"]
   };
 
   const renderContent = () => {
@@ -124,6 +150,9 @@ export function DocumentBrowser({ initialView }: DocumentBrowserProps) {
           initialView === 'bookmarks' ? 'Các tài liệu bạn đã đánh dấu để truy cập nhanh' : 
           'Tài liệu đã xóa sẽ được lưu ở đây trong 30 ngày'
         }
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        onToggleFilters={toggleFilterPanel}
       />
       
       <Tabs 
@@ -145,6 +174,12 @@ export function DocumentBrowser({ initialView }: DocumentBrowserProps) {
             {initialView !== 'bookmarks' && (
               <DocumentBreadcrumb path={currentPath} onNavigate={navigateToPath} />
             )}
+            
+            <ActiveFilters 
+              filters={activeFilters}
+              onRemoveFilter={removeFilter}
+              onResetFilters={resetFilters}
+            />
             
             <div className="flex items-center justify-between">
               <div className="text-sm text-muted-foreground">
@@ -204,6 +239,12 @@ export function DocumentBrowser({ initialView }: DocumentBrowserProps) {
               <DocumentBreadcrumb path={currentPath} onNavigate={navigateToPath} />
             )}
             
+            <ActiveFilters 
+              filters={activeFilters}
+              onRemoveFilter={removeFilter}
+              onResetFilters={resetFilters}
+            />
+            
             <div className="flex items-center justify-between">
               <div className="text-sm text-muted-foreground">
                 {displayItems.folders.length} thư mục, {displayItems.files.length} tài liệu
@@ -256,6 +297,15 @@ export function DocumentBrowser({ initialView }: DocumentBrowserProps) {
           {renderContent()}
         </TabsContent>
       </Tabs>
+
+      <DocumentFilterPanel
+        isOpen={isFilterPanelOpen}
+        onClose={toggleFilterPanel}
+        activeType={activeType}
+        filters={activeFilters}
+        onFilterChange={handleFilterChange}
+        filterOptions={filterOptions}
+      />
     </div>
   );
 }
