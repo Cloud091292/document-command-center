@@ -2,35 +2,15 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from '@/components/ui/sheet';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Accordion, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { CategoryFilters } from './filters/CategoryFilters';
+import { DepartmentFilters } from './filters/DepartmentFilters';
+import { FileTypeFilters } from './filters/FileTypeFilters';
+import { StatusFilters } from './filters/StatusFilters';
+import { CustomerFilters } from './filters/CustomerFilters';
 import { DocumentType } from '@/types/document';
-
-export interface FilterOptions {
-  categories: string[];
-  departments: string[];
-  statuses: string[];
-  fileTypes: string[];
-  contractNumber?: string;
-  subscriberId?: string;
-  customerId?: string;
-  documentConditions?: string[];
-}
-
-export interface DocumentFilter {
-  selectedCategories: string[];
-  selectedDepartments: string[];
-  selectedStatuses: string[];
-  selectedFileTypes: string[];
-  contractNumber?: string;
-  subscriberId?: string;
-  customerId?: string;
-  selectedDocumentCondition?: string;
-}
+import { DocumentFilter, FilterOptions } from './types';
 
 interface DocumentFilterPanelProps {
   isOpen: boolean;
@@ -72,47 +52,39 @@ export function DocumentFilterPanel({
   };
 
   const toggleCategory = (category: string) => {
-    setLocalFilters(prev => {
-      const selectedCategories = prev.selectedCategories.includes(category)
+    setLocalFilters(prev => ({
+      ...prev,
+      selectedCategories: prev.selectedCategories.includes(category)
         ? prev.selectedCategories.filter(c => c !== category)
-        : [...prev.selectedCategories, category];
-      return { ...prev, selectedCategories };
-    });
+        : [...prev.selectedCategories, category]
+    }));
   };
 
   const toggleDepartment = (department: string) => {
-    setLocalFilters(prev => {
-      const selectedDepartments = prev.selectedDepartments.includes(department)
+    setLocalFilters(prev => ({
+      ...prev,
+      selectedDepartments: prev.selectedDepartments.includes(department)
         ? prev.selectedDepartments.filter(d => d !== department)
-        : [...prev.selectedDepartments, department];
-      return { ...prev, selectedDepartments };
-    });
+        : [...prev.selectedDepartments, department]
+    }));
   };
 
   const toggleStatus = (status: string) => {
-    setLocalFilters(prev => {
-      const selectedStatuses = prev.selectedStatuses.includes(status)
+    setLocalFilters(prev => ({
+      ...prev,
+      selectedStatuses: prev.selectedStatuses.includes(status)
         ? prev.selectedStatuses.filter(s => s !== status)
-        : [...prev.selectedStatuses, status];
-      return { ...prev, selectedStatuses };
-    });
+        : [...prev.selectedStatuses, status]
+    }));
   };
 
   const toggleFileType = (fileType: string) => {
-    setLocalFilters(prev => {
-      const selectedFileTypes = prev.selectedFileTypes.includes(fileType)
+    setLocalFilters(prev => ({
+      ...prev,
+      selectedFileTypes: prev.selectedFileTypes.includes(fileType)
         ? prev.selectedFileTypes.filter(f => f !== fileType)
-        : [...prev.selectedFileTypes, fileType];
-      return { ...prev, selectedFileTypes };
-    });
-  };
-
-  const handleDocumentConditionChange = (condition: string) => {
-    setLocalFilters(prev => ({ ...prev, selectedDocumentCondition: condition }));
-  };
-
-  const handleInputChange = (field: 'contractNumber' | 'subscriberId' | 'customerId', value: string) => {
-    setLocalFilters(prev => ({ ...prev, [field]: value }));
+        : [...prev.selectedFileTypes, fileType]
+    }));
   };
 
   return (
@@ -131,139 +103,54 @@ export function DocumentFilterPanel({
           <Accordion type="multiple" defaultValue={['categories', 'departments', 'fileTypes', 'statuses']}>
             <AccordionItem value="categories">
               <AccordionTrigger>Danh mục tài liệu</AccordionTrigger>
-              <AccordionContent>
-                <div className="grid grid-cols-2 gap-2">
-                  {filterOptions.categories.map((category) => (
-                    <div key={category} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`category-${category}`}
-                        checked={localFilters.selectedCategories.includes(category)}
-                        onCheckedChange={() => toggleCategory(category)}
-                      />
-                      <Label htmlFor={`category-${category}`} className="text-sm">
-                        {category}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </AccordionContent>
+              <CategoryFilters
+                categories={filterOptions.categories}
+                selectedCategories={localFilters.selectedCategories}
+                onToggleCategory={toggleCategory}
+              />
             </AccordionItem>
 
             <AccordionItem value="departments">
               <AccordionTrigger>Phòng ban</AccordionTrigger>
-              <AccordionContent>
-                <div className="grid grid-cols-2 gap-2">
-                  {filterOptions.departments.map((department) => (
-                    <div key={department} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`department-${department}`}
-                        checked={localFilters.selectedDepartments.includes(department)}
-                        onCheckedChange={() => toggleDepartment(department)}
-                      />
-                      <Label htmlFor={`department-${department}`} className="text-sm">
-                        {department}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </AccordionContent>
+              <DepartmentFilters
+                departments={filterOptions.departments}
+                selectedDepartments={localFilters.selectedDepartments}
+                onToggleDepartment={toggleDepartment}
+              />
             </AccordionItem>
 
             <AccordionItem value="fileTypes">
               <AccordionTrigger>Định dạng file</AccordionTrigger>
-              <AccordionContent>
-                <div className="grid grid-cols-2 gap-2">
-                  {filterOptions.fileTypes.map((fileType) => (
-                    <div key={fileType} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`fileType-${fileType}`}
-                        checked={localFilters.selectedFileTypes.includes(fileType)}
-                        onCheckedChange={() => toggleFileType(fileType)}
-                      />
-                      <Label htmlFor={`fileType-${fileType}`} className="text-sm">
-                        {fileType.toUpperCase()}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </AccordionContent>
+              <FileTypeFilters
+                fileTypes={filterOptions.fileTypes}
+                selectedFileTypes={localFilters.selectedFileTypes}
+                onToggleFileType={toggleFileType}
+              />
             </AccordionItem>
 
             <AccordionItem value="statuses">
               <AccordionTrigger>Trạng thái hiệu lực</AccordionTrigger>
-              <AccordionContent>
-                <div className="grid grid-cols-2 gap-2">
-                  {filterOptions.statuses.map((status) => (
-                    <div key={status} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`status-${status}`}
-                        checked={localFilters.selectedStatuses.includes(status)}
-                        onCheckedChange={() => toggleStatus(status)}
-                      />
-                      <Label htmlFor={`status-${status}`} className="text-sm">
-                        {status}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              </AccordionContent>
+              <StatusFilters
+                statuses={filterOptions.statuses}
+                selectedStatuses={localFilters.selectedStatuses}
+                onToggleStatus={toggleStatus}
+              />
             </AccordionItem>
 
             {activeType === 'customer' && (
               <>
                 <AccordionItem value="contractInfo">
                   <AccordionTrigger>Thông tin hợp đồng</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="contractNumber">Số hợp đồng</Label>
-                        <Input
-                          id="contractNumber"
-                          placeholder="Nhập số hợp đồng"
-                          value={localFilters.contractNumber || ''}
-                          onChange={(e) => handleInputChange('contractNumber', e.target.value)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="subscriberId">ID thuê bao</Label>
-                        <Input
-                          id="subscriberId"
-                          placeholder="Nhập ID thuê bao"
-                          value={localFilters.subscriberId || ''}
-                          onChange={(e) => handleInputChange('subscriberId', e.target.value)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="customerId">Mã khách hàng</Label>
-                        <Input
-                          id="customerId"
-                          placeholder="Nhập mã khách hàng"
-                          value={localFilters.customerId || ''}
-                          onChange={(e) => handleInputChange('customerId', e.target.value)}
-                        />
-                      </div>
-                    </div>
-                  </AccordionContent>
+                  <CustomerFilters
+                    contractNumber={localFilters.contractNumber}
+                    subscriberId={localFilters.subscriberId}
+                    customerId={localFilters.customerId}
+                    documentConditions={filterOptions.documentConditions}
+                    selectedDocumentCondition={localFilters.selectedDocumentCondition}
+                    onInputChange={(field, value) => setLocalFilters(prev => ({ ...prev, [field]: value }))}
+                    onDocumentConditionChange={(condition) => setLocalFilters(prev => ({ ...prev, selectedDocumentCondition: condition }))}
+                  />
                 </AccordionItem>
-
-                {filterOptions.documentConditions && filterOptions.documentConditions.length > 0 && (
-                  <AccordionItem value="documentCondition">
-                    <AccordionTrigger>Tình trạng hồ sơ</AccordionTrigger>
-                    <AccordionContent>
-                      <RadioGroup
-                        value={localFilters.selectedDocumentCondition}
-                        onValueChange={handleDocumentConditionChange}
-                      >
-                        {filterOptions.documentConditions.map((condition) => (
-                          <div key={condition} className="flex items-center space-x-2">
-                            <RadioGroupItem value={condition} id={`condition-${condition}`} />
-                            <Label htmlFor={`condition-${condition}`}>{condition}</Label>
-                          </div>
-                        ))}
-                      </RadioGroup>
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
               </>
             )}
           </Accordion>
