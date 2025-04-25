@@ -1,7 +1,17 @@
 
 import { useState, useCallback, useEffect } from 'react';
-import { DocumentFilter } from '@/components/documents/DocumentFilterPanel';
 import { DocumentType, Folder, DocumentFile } from '@/types/document';
+
+export interface DocumentFilter {
+  selectedCategories: string[];
+  selectedDepartments: string[];
+  selectedStatuses: string[];
+  selectedFileTypes: string[];
+  contractNumber?: string;
+  subscriberId?: string;
+  customerId?: string;
+  selectedDocumentCondition?: string;
+}
 
 interface UseDocumentFiltersProps {
   initialType: DocumentType;
@@ -57,18 +67,29 @@ export const useDocumentFilters = ({ initialType, initialView }: UseDocumentFilt
       setOperationalFilters(prev => {
         const newFilters = { ...prev };
         
-        // Check if the property is an array
-        if (Array.isArray(prev[type])) {
+        // Handle array properties
+        if (
+          type === 'selectedCategories' || 
+          type === 'selectedDepartments' || 
+          type === 'selectedStatuses' || 
+          type === 'selectedFileTypes'
+        ) {
           if (value) {
-            // For array types with a specific value to remove
-            newFilters[type as keyof typeof newFilters] = (prev[type] as string[]).filter(item => item !== value);
+            // Remove specific value from array
+            newFilters[type] = prev[type].filter(item => item !== value);
           } else {
             // Reset the entire array
-            newFilters[type as keyof typeof newFilters] = [];
+            newFilters[type] = [];
           }
-        } else {
-          // For string types
-          newFilters[type as keyof typeof newFilters] = '';
+        } 
+        // Handle string properties
+        else if (
+          type === 'contractNumber' || 
+          type === 'subscriberId' || 
+          type === 'customerId' || 
+          type === 'selectedDocumentCondition'
+        ) {
+          newFilters[type] = '';
         }
         
         return newFilters;
@@ -77,18 +98,29 @@ export const useDocumentFilters = ({ initialType, initialView }: UseDocumentFilt
       setCustomerFilters(prev => {
         const newFilters = { ...prev };
         
-        // Check if the property is an array
-        if (Array.isArray(prev[type])) {
+        // Handle array properties
+        if (
+          type === 'selectedCategories' || 
+          type === 'selectedDepartments' || 
+          type === 'selectedStatuses' || 
+          type === 'selectedFileTypes'
+        ) {
           if (value) {
-            // For array types with a specific value to remove
-            newFilters[type as keyof typeof newFilters] = (prev[type] as string[]).filter(item => item !== value);
+            // Remove specific value from array
+            newFilters[type] = prev[type].filter(item => item !== value);
           } else {
             // Reset the entire array
-            newFilters[type as keyof typeof newFilters] = [];
+            newFilters[type] = [];
           }
-        } else {
-          // For string types
-          newFilters[type as keyof typeof newFilters] = '';
+        } 
+        // Handle string properties
+        else if (
+          type === 'contractNumber' || 
+          type === 'subscriberId' || 
+          type === 'customerId' || 
+          type === 'selectedDocumentCondition'
+        ) {
+          newFilters[type] = '';
         }
         
         return newFilters;
