@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppLayout } from "./components/layout/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import DocumentLibrary from "./pages/documents/DocumentLibrary";
-import MyDocuments from "./pages/documents/MyDocuments";
 import Bookmarks from "./pages/documents/Bookmarks";
 import TrashBin from "./pages/documents/TrashBin";
 import IncomingDocuments from "./pages/correspondence/IncomingDocuments";
@@ -33,7 +32,6 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/documents/all" element={<DocumentLibrary />} />
-            <Route path="/documents/my-documents" element={<MyDocuments />} />
             <Route path="/documents/bookmarks" element={<Bookmarks />} />
             <Route path="/documents/trash" element={<TrashBin />} />
             <Route path="/correspondence/incoming" element={<IncomingDocuments />} />
